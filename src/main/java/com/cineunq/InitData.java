@@ -23,7 +23,7 @@ public class InitData {
         }
 
     private void fireInitialData() {
-        Pelicula p = new PeliculaBuilder().withNombre("Avengers").withDescripcion("The Avengers").withDuracion(150).withImagen("Error").withAsientos(null).build();
+        Pelicula p = new PeliculaBuilder().withNombre("Avengers 1").withDescripcion("The Avengers").withDuracion(150).withImagen("https://http2.mlstatic.com/D_NQ_NP_888996-MLA32569507268_102019-O.jpg").withAsientos(null).build();
         peliculaService.savePelicula(p);
     }
 

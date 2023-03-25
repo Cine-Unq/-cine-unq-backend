@@ -32,4 +32,12 @@ public class Asiento {
         this.estaOcupado = estaOcupado;
         this.nrAsiento = nrAsiento;
     }
+
+    public boolean isEstaOcupado() {
+        return estaOcupado;
+    }
+
+    public String getNrAsiento() {
+        return nrAsiento;
+    }
 }

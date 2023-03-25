@@ -1,5 +1,6 @@
 package com.cineunq.controllers;
 
+import com.cineunq.aspects.LogExecutionTime;
 import com.cineunq.dominio.Pelicula;
 import com.cineunq.service.PeliculaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +25,7 @@ public class PeliculaController {
     @Operation(
             summary = "Retorna todas las peliculas",
             description = "Todas las peliculas")
+    @LogExecutionTime
     public ResponseEntity<List<Pelicula>> getAllPeliculas() {
         List<Pelicula> users = peliculaService.getAll();
         return ResponseEntity.ok().body(users);

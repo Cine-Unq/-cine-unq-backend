@@ -28,4 +28,13 @@ public class AsientoService implements IAsientoService {
     public void saveAsiento(Asiento p) {
         repository.save(p);
     }
+
+    public Asiento updateAsiento(Asiento a){
+        return repository.save(a);
+    }
+
+    @Override
+    public List<Asiento> getAsientosByMovie(Long id){
+        return repository.findAsientoByMovie(id);
+    }
 }

@@ -1,10 +1,17 @@
 package com.cineunq.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Pelicula {
 
     @Id
@@ -19,11 +26,9 @@ public class Pelicula {
 
     private String imagen;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Asiento> asientos;
-
-    public Pelicula() {
-    }
 
     public Pelicula(String nombre, String descripcion, Integer duracion, String imagen, List<Asiento> asientos) {
         this.nombre = nombre;
@@ -31,34 +36,5 @@ public class Pelicula {
         this.duracion = duracion;
         this.imagen = imagen;
         this.asientos = asientos;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public Integer getDuracion() {
-        return duracion;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public List<Asiento> getAsientos() {
-        return asientos;
     }
 }

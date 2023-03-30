@@ -1,11 +1,15 @@
 package com.cineunq.dominio;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Asiento {
 
     @Id
@@ -14,30 +18,13 @@ public class Asiento {
 
     private boolean estaOcupado;
 
-    private String nrAsiento;
+    private String columna;
 
+    private String fila;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getId() {
-        return id;
-    }
-
-
-    public Asiento() {
-    }
-
-    public Asiento(boolean estaOcupado, String nrAsiento) {
+    public Asiento(boolean estaOcupado, String columna, String fila) {
         this.estaOcupado = estaOcupado;
-        this.nrAsiento = nrAsiento;
-    }
-
-    public boolean isEstaOcupado() {
-        return estaOcupado;
-    }
-
-    public String getNrAsiento() {
-        return nrAsiento;
+        this.columna = columna;
+        this.fila = fila;
     }
 }

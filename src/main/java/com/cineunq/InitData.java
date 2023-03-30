@@ -32,8 +32,8 @@ public class InitData {
         }
 
     private void fireInitialData() {
-        Asiento a1 = new AsientoBuilder().withNrAsiento("A1").withEstaOcupado(false).build();
-        Asiento a2 = new AsientoBuilder().withNrAsiento("A2").withEstaOcupado(true).build();
+        Asiento a1 = new AsientoBuilder().withNrColumna("A").withNrFila("1").withEstaOcupado(false).build();
+        Asiento a2 = new AsientoBuilder().withNrColumna("A").withNrFila("2").withEstaOcupado(true).build();
         asientoService.saveAsiento(a1);
         asientoService.saveAsiento(a2);
         Pelicula p = new PeliculaBuilder().withNombre("Avengers 1").withDescripcion("The Avengers").withDuracion(150).withImagen("https://http2.mlstatic.com/D_NQ_NP_888996-MLA32569507268_102019-O.jpg").withAsientos(List.of(a1,a2)).build();

@@ -2,6 +2,7 @@ package com.cineunq.controllers;
 
 import com.cineunq.aspects.LogExecutionTime;
 import com.cineunq.dominio.Pelicula;
+import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.PeliculaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,22 +27,30 @@ public class PeliculaController {
     @GetMapping(produces = "application/json")
     @Operation(summary = "Retorna todas las peliculas",description = "Todas las peliculas")
     @LogExecutionTime
-    public ResponseEntity<List<Pelicula>> getAllPeliculas(@PathVariable String pelicula) {
+    public List<Pelicula> getAllPeliculas() {
         List<Pelicula> peliculas = peliculaService.getAll();
-        return ResponseEntity.ok().body(peliculas);
+        return peliculas;
     }
 
-    @GetMapping(value = "/{pelicula}",produces = "application/json")
+    @GetMapping(value = "/{id}",produces = "application/json")
     @Operation(summary = "Retorna una pelicula",description = "Devuelve una pelicula si existe")
-    //@LogExecutionTime
-    public ResponseEntity<?> getPeliculaByname(@PathVariable("pelicula") String nombrePelicula) {
-        Optional<Pelicula> pelicula = peliculaService.findByNombre(nombrePelicula);
-        if (pelicula.isPresent()){
-            return ResponseEntity.ok().body(pelicula.get());
-        }else{
-            //return ResponseEntity.status(404).body("No se a encontrado la pelicula solicitada");
-            return ResponseEntity.notFound().build();
-        }
+    public Pelicula getPeliculaByID(@PathVariable("id") String id) throws NotFoundException {
+        Pelicula pelicula = peliculaService.findByID(Long.parseLong(id));
+        return pelicula;
     }
+
+
+//    @GetMapping(value = "/{pelicula}",produces = "application/json")
+//    @Operation(summary = "Retorna una pelicula",description = "Devuelve una pelicula si existe")
+//    public ResponseEntity<?> getPeliculaByname(@PathVariable("pelicula") String nombrePelicula) {
+//        Optional<Pelicula> pelicula = peliculaService.findByNombre(nombrePelicula);
+//        if (pelicula.isPresent()){
+//            return ResponseEntity.ok().body(pelicula.get());
+//        }else{
+//            //return ResponseEntity.status(404).body("No se a encontrado la pelicula solicitada");
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
 
 }

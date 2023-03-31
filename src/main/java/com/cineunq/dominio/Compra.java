@@ -17,15 +17,15 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @NonNull
     private Cliente clienteCompra;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @NonNull
     private List<Asiento> asientosComprados;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @NonNull
     private Pelicula pelicula; //Posiblemente se valla
 

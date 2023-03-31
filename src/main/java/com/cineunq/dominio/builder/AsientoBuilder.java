@@ -1,14 +1,15 @@
 package com.cineunq.dominio.builder;
 
 import com.cineunq.dominio.Asiento;
+import com.cineunq.dominio.enums.EstadoAsiento;
 
 public class AsientoBuilder {
-    private boolean estaOcupado;
+    private EstadoAsiento estaOcupado;
     private String columna;
 
     private String fila;
 
-    public AsientoBuilder withEstaOcupado(boolean estaOcupado) {
+    public AsientoBuilder withEstaOcupado(EstadoAsiento estaOcupado) {
         this.estaOcupado = estaOcupado;
         return this;
     }

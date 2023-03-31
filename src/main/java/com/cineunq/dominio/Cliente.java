@@ -1,9 +1,7 @@
 package com.cineunq.dominio;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,14 +9,17 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
+    @NonNull
     public String nombre;
 
+    @NonNull
     public String correo;
 
 }

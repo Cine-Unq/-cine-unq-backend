@@ -2,6 +2,8 @@ package com.cineunq.service;
 
 import com.cineunq.dao.AsientosRepository;
 import com.cineunq.dominio.Asiento;
+import com.cineunq.dominio.enums.EstadoAsiento;
+import com.cineunq.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,12 @@ public class AsientoService implements IAsientoService {
     }
 
     @Override
-    public Optional<Asiento> findByID(Long id) {
-        return repository.findById(id);
+    public Asiento findByID(Long id) throws NotFoundException {
+        Optional<Asiento> asiento = repository.findById(id);
+        if(asiento.isPresent()){
+            return asiento.get();
+        }
+        throw new NotFoundException("No se a encontrado el Asiento solicitada ");
     }
 
     @Override
@@ -29,8 +35,10 @@ public class AsientoService implements IAsientoService {
         repository.save(p);
     }
 
-    public Asiento updateAsiento(Asiento a){
-        return repository.save(a);
+    public Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException {
+        Asiento asiento = this.findByID(id);
+        asiento.setEstaOcupado(estadoAsiento);
+        return repository.save(asiento);
     }
 
     @Override

@@ -1,30 +1,28 @@
 package com.cineunq.dominio;
 
+import com.cineunq.dominio.enums.EstadoAsiento;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Asiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean estaOcupado;
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private EstadoAsiento estaOcupado;
 
+    @NonNull
     private String columna;
 
+    @NonNull
     private String fila;
 
-    public Asiento(boolean estaOcupado, String columna, String fila) {
-        this.estaOcupado = estaOcupado;
-        this.columna = columna;
-        this.fila = fila;
-    }
 }

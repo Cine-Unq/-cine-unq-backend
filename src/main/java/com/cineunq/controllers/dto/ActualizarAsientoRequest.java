@@ -8,7 +8,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ActualizarAsientoDto {
+public class ActualizarAsientoRequest {
     private Long id;
     private EstadoAsiento estaOcupado;
 }

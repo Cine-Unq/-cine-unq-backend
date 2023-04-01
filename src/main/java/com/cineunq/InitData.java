@@ -41,17 +41,19 @@ public class InitData {
 
     @PostConstruct
     private void initialize() {
-            logger.info("Init Data Using H2 DB");
+            logger.info("Init Data Using MySql DB");
             fireInitialData();
         }
 
     private void fireInitialData() {
         Asiento a1 = new AsientoBuilder().withNrColumna("A").withNrFila("1").withEstaOcupado(EstadoAsiento.LIBRE).build();
         Asiento a2 = new AsientoBuilder().withNrColumna("A").withNrFila("2").withEstaOcupado(EstadoAsiento.LIBRE).build();
+        Asiento b1 = new AsientoBuilder().withNrColumna("B").withNrFila("1").withEstaOcupado(EstadoAsiento.LIBRE).build();
         asientoService.saveAsiento(a1);
         asientoService.saveAsiento(a2);
-        Pelicula p = new PeliculaBuilder().withNombre("Avengers 1").withDescripcion("The Avengers").withDuracion(150).withImagen("https://http2.mlstatic.com/D_NQ_NP_888996-MLA32569507268_102019-O.jpg").withAsientos(List.of(a1,a2)).build();
-        Pelicula p2 = new PeliculaBuilder().withNombre("John Wick").withDescripcion("La ciudad de Nueva York se llena de balas cuando John Wick, un exasesino a sueldo, regresa de su retiro para enfrentar a los mafiosos rusos, liderados por Viggo Tarasov, que destruyeron todo aquello que él amaba y pusieron precio a su cabeza").withDuracion(114).withImagen("https://http2.mlstatic.com/D_NQ_NP_637824-MLA40163107899_122019-O.jpg").withAsientos(null).build();
+        asientoService.saveAsiento(b1);
+        Pelicula p = new PeliculaBuilder().withNombre("The Avengers").withDescripcion("El director de la Agencia SHIELD decide reclutar a un equipo para salvar al mundo de un desastre casi seguro cuando un enemigo inesperado surge como una gran amenaza para la seguridad mundial.").withDuracion(150).withImagen("https://http2.mlstatic.com/D_NQ_NP_888996-MLA32569507268_102019-O.jpg").withAsientos(List.of(a1,a2)).build();
+        Pelicula p2 = new PeliculaBuilder().withNombre("John Wick").withDescripcion("La ciudad de Nueva York se llena de balas cuando John Wick, un exasesino a sueldo, regresa de su retiro para enfrentar a los mafiosos rusos, liderados por Viggo Tarasov, que destruyeron todo aquello que él amaba y pusieron precio a su cabeza").withDuracion(114).withImagen("https://http2.mlstatic.com/D_NQ_NP_637824-MLA40163107899_122019-O.jpg").withAsientos(List.of(b1)).build();
         peliculaService.savePelicula(p);
         peliculaService.savePelicula(p2);
         Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");

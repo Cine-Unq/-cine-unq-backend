@@ -38,6 +38,6 @@ public class PeliculaBuilder {
     }
 
     public Pelicula build() {
-        return new Pelicula(nombre, descripcion, duracion, imagen, asientos);
+        return new Pelicula(nombre, descripcion, duracion, imagen,asientos);
     }
 }

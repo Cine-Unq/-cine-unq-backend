@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+//@Builder
 public class Asiento {
 
     @Id

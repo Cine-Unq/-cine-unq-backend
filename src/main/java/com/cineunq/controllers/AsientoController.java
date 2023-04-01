@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/asientos")
 @Tag(name = "Asientos", description = "Endpoints para los asientos")
+@CrossOrigin(origins= "*", allowedHeaders = "*")
 public class AsientoController {
 
     @Autowired

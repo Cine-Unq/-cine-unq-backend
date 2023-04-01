@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@ToString
 //@Builder
 public class Asiento {
 

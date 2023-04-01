@@ -31,8 +31,8 @@ public class AsientoService implements IAsientoService {
     }
 
     @Override
-    public void saveAsiento(Asiento p) {
-        repository.save(p);
+    public Asiento saveAsiento(Asiento p) {
+        return repository.save(p);
     }
 
     public Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException {

@@ -13,7 +13,7 @@ public interface IAsientoService {
 
     Asiento findByID(Long id) throws NotFoundException;
 
-    void saveAsiento(Asiento p);
+    Asiento saveAsiento(Asiento p);
 
     Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException;
 

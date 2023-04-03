@@ -1,7 +1,7 @@
 package com.cineunq.controllers;
 
-import com.cineunq.controllers.dto.ActualizarAsientoRequest;
-import com.cineunq.controllers.dto.AsientoResponse;
+import com.cineunq.controllers.dto.request.ActualizarAsientoRequest;
+import com.cineunq.controllers.dto.response.AsientoResponse;
 import com.cineunq.dominio.Asiento;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.AsientoService;

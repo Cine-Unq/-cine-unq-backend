@@ -11,6 +11,7 @@ import com.cineunq.dominio.Pelicula;
 import com.cineunq.dominio.builder.AsientoBuilder;
 import com.cineunq.dominio.builder.PeliculaBuilder;
 import com.cineunq.service.AsientoService;
+import com.cineunq.service.CompraService;
 import com.cineunq.service.PeliculaService;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
@@ -38,6 +39,9 @@ public class InitData {
     private CompraRepository compraRepository;
 
     @Autowired
+    private CompraService compraService;
+
+    @Autowired
     private ClienteRepository clienteRepository;
 
     @PostConstruct
@@ -55,8 +59,8 @@ public class InitData {
                 asientos.add(a);
             }
         }
-        asientos.forEach(asiento -> asientoService.saveAsiento(asiento));
-        return asientos.stream().map(asiento -> asientoService.saveAsiento(asiento)).toList();
+        //return asientos.stream().map(asiento -> asientoService.saveAsiento(asiento)).toList();
+        return asientos;
     }
 
     private void fireInitialData() {
@@ -65,10 +69,12 @@ public class InitData {
         peliculaService.savePelicula(p);
         Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
         clienteRepository.save(pepe);
+
+
         //Pelicula p2 = new PeliculaBuilder().withNombre("John Wick").withDescripcion("La ciudad de Nueva York se llena de balas cuando John Wick, un exasesino a sueldo, regresa de su retiro para enfrentar a los mafiosos rusos, liderados por Viggo Tarasov, que destruyeron todo aquello que él amaba y pusieron precio a su cabeza").withDuracion(114).withImagen("https://http2.mlstatic.com/D_NQ_NP_637824-MLA40163107899_122019-O.jpg").withAsientos(List.of(b1)).build();
         //peliculaService.savePelicula(p2);
-        //Compra c1 = new Compra(pepe,List.of(a1),p, LocalDate.now());
-        //compraRepository.save(c1);
+        Compra c1 = new Compra(pepe,asientosCreados.subList(0,7),p);
+        compraService.saveCompra(c1);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.cineunq.controllers.dto;
+package com.cineunq.controllers.dto.response;
 
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;

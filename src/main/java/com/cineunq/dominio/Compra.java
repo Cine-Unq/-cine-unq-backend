@@ -21,7 +21,7 @@ public class Compra {
     @NonNull
     private Cliente clienteCompra;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @NonNull
     private List<Asiento> asientosComprados;
 
@@ -30,6 +30,6 @@ public class Compra {
     private Pelicula pelicula; //Posiblemente se valla
 
     @NonNull
-    private LocalDate fechaCompra ;
+    private LocalDate fechaCompra = LocalDate.now();
 
 }

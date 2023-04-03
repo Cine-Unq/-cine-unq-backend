@@ -4,6 +4,7 @@ package com.cineunq.service;
 import com.cineunq.dao.PeliculaRepository;
 import com.cineunq.dominio.Pelicula;
 import com.cineunq.exceptions.NotFoundException;
+import com.cineunq.service.interfaces.IPeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

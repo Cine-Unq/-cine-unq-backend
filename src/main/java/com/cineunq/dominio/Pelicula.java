@@ -30,7 +30,7 @@ public class Pelicula {
     @NonNull
     private String imagen;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @JsonIgnore
     @NonNull
     private List<Asiento> asientos ;

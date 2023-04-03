@@ -1,4 +1,4 @@
-package com.cineunq.service;
+package com.cineunq.service.interfaces;
 
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;

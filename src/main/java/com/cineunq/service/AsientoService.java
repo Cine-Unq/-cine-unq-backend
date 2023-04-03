@@ -4,6 +4,7 @@ import com.cineunq.dao.AsientosRepository;
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.NotFoundException;
+import com.cineunq.service.interfaces.IAsientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

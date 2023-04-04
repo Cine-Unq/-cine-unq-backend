@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AsientoResponse {
     private Asiento wrapped;
+
     public boolean getEstaLibreAsiento(){
         return wrapped.getEstaOcupado() == EstadoAsiento.LIBRE;
     }

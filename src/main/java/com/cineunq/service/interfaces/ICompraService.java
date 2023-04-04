@@ -12,4 +12,6 @@ public interface ICompraService {
     Compra findById(Long id) throws NotFoundException;
 
     Compra saveCompra(Compra compra);
+
+    Compra saveCompra(Compra compra,List<Long> idsAsientos);
 }

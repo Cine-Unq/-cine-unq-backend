@@ -3,11 +3,13 @@ package com.cineunq.service;
 import com.cineunq.dao.AsientosRepository;
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;
+import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.IAsientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,18 @@ public class AsientoService implements IAsientoService {
         Asiento asiento = this.findByID(id);
         asiento.setEstaOcupado(estadoAsiento);
         return repository.save(asiento);
+    }
+
+    public List<Asiento> updateAsientos(List<Long> idsAsientosComprados) throws NotFoundException {
+        List<Asiento> asientos = new ArrayList<>();
+        idsAsientosComprados.forEach(idAsiento -> {
+            try {
+                asientos.add(this.updateAsiento(idAsiento, EstadoAsiento.OCUPADO));
+            } catch (NotFoundException e) {
+                throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
+            }
+        });
+        return asientos;
     }
 
     @Override

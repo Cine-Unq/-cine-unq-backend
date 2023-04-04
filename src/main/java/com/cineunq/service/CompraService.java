@@ -2,7 +2,10 @@ package com.cineunq.service;
 
 import com.cineunq.dao.ClienteRepository;
 import com.cineunq.dao.CompraRepository;
+import com.cineunq.dominio.Asiento;
+import com.cineunq.dominio.Cliente;
 import com.cineunq.dominio.Compra;
+import com.cineunq.dominio.Pelicula;
 import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
@@ -10,6 +13,7 @@ import com.cineunq.service.interfaces.ICompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +25,12 @@ public class CompraService implements ICompraService {
 
     @Autowired
     private AsientoService asientoService;
+
+    @Autowired
+    private PeliculaService peliculaService;
+
+    @Autowired
+    private ClienteRepository clienteService;
 
     @Override
     public List<Compra> getAll() {
@@ -46,5 +56,30 @@ public class CompraService implements ICompraService {
             }
         });
         return repository.save(compra);
+    }
+
+    public Compra saveCompra(Compra c, List<Long> idsAsientosComprados) {
+        List<Asiento> asientos = new ArrayList<>();
+        idsAsientosComprados.forEach(idAsiento -> {
+            try {
+                asientos.add(asientoService.updateAsiento(idAsiento, EstadoAsiento.OCUPADO));
+            } catch (NotFoundException e) {
+                throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
+            }
+        });
+        Compra compra = new Compra(c.getClienteCompra(),asientos,c.getPelicula());
+        return repository.save(compra);
+    }
+
+    public Compra saveCompra(Long idCliente, Long idPelicula, List<Long> idsAsientosComprados) {
+        try{
+            Cliente cliente = clienteService.getReferenceById(idCliente);
+            Pelicula pelicula = peliculaService.findByID(idPelicula);
+            List<Asiento> asientos = asientoService.updateAsientos(idsAsientosComprados);
+            Compra compra = new Compra(cliente,asientos,pelicula);
+            return repository.save(compra);
+        }catch (Exception e){
+            throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
+        }
     }
 }

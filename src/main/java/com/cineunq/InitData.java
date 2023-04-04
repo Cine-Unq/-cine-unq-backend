@@ -69,12 +69,7 @@ public class InitData {
         peliculaService.savePelicula(p);
         Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
         clienteRepository.save(pepe);
-
-
-        //Pelicula p2 = new PeliculaBuilder().withNombre("John Wick").withDescripcion("La ciudad de Nueva York se llena de balas cuando John Wick, un exasesino a sueldo, regresa de su retiro para enfrentar a los mafiosos rusos, liderados por Viggo Tarasov, que destruyeron todo aquello que él amaba y pusieron precio a su cabeza").withDuracion(114).withImagen("https://http2.mlstatic.com/D_NQ_NP_637824-MLA40163107899_122019-O.jpg").withAsientos(List.of(b1)).build();
-        //peliculaService.savePelicula(p2);
-        Compra c1 = new Compra(pepe,asientosCreados.subList(0,7),p);
-        compraService.saveCompra(c1);
+        compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L,6L,7L,8L));
     }
 
 }

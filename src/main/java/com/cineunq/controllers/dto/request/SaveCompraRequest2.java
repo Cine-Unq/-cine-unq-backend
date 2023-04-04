@@ -7,14 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.util.List;
 
 @AllArgsConstructor
 @Getter
 @Setter
-public class SaveCompraRequest {
-    private Long idCliente;
-    private List<Long> idsAsientosComprados;
-    private Long idPelicula;
+public class SaveCompraRequest2 {
+    private Cliente cliente;
+    //private List<Asiento> asientosComprados;
+    private List<Asiento> asientosComprados;
+    private Pelicula pelicula;
 }

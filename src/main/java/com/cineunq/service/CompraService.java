@@ -10,6 +10,7 @@ import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.ICompraService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,31 +47,9 @@ public class CompraService implements ICompraService {
         throw new NotFoundException("No se a encontrado la Compra solicitada");
     }
 
+
     @Override
-    public Compra saveCompra(Compra compra) {
-        compra.getAsientosComprados().forEach(asiento -> {
-            try {
-                asientoService.updateAsiento(asiento.getId(), EstadoAsiento.OCUPADO);
-            } catch (NotFoundException e) {
-                throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
-            }
-        });
-        return repository.save(compra);
-    }
-
-    public Compra saveCompra(Compra c, List<Long> idsAsientosComprados) {
-        List<Asiento> asientos = new ArrayList<>();
-        idsAsientosComprados.forEach(idAsiento -> {
-            try {
-                asientos.add(asientoService.updateAsiento(idAsiento, EstadoAsiento.OCUPADO));
-            } catch (NotFoundException e) {
-                throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
-            }
-        });
-        Compra compra = new Compra(c.getClienteCompra(),asientos,c.getPelicula());
-        return repository.save(compra);
-    }
-
+    @Transactional
     public Compra saveCompra(Long idCliente, Long idPelicula, List<Long> idsAsientosComprados) {
         try{
             Cliente cliente = clienteService.getReferenceById(idCliente);

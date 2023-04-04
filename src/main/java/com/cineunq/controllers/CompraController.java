@@ -36,9 +36,10 @@ public class CompraController {
     public Compra saveCompra(@RequestBody SaveCompraRequest compra){
         return service.saveCompra(compra.getIdCliente(),compra.getIdPelicula(),compra.getIdsAsientosComprados());
     }
-    @PostMapping(path = "/v2")
-    public Compra saveCompra(@RequestBody SaveCompraRequest2 compra){
-        Compra c = new Compra(compra.getCliente(),compra.getAsientosComprados(),compra.getPelicula());
-        return service.saveCompra(c);
-    }
+
+//    @PostMapping(path = "/v2")
+//    public Compra saveCompra(@RequestBody SaveCompraRequest2 compra){
+//        Compra c = new Compra(compra.getCliente(),compra.getAsientosComprados(),compra.getPelicula());
+//        return service.saveCompra(c);
+//    }
 }

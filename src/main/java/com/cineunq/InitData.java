@@ -11,6 +11,7 @@ import com.cineunq.dominio.Pelicula;
 import com.cineunq.dominio.builder.AsientoBuilder;
 import com.cineunq.dominio.builder.PeliculaBuilder;
 import com.cineunq.service.AsientoService;
+import com.cineunq.service.ClienteService;
 import com.cineunq.service.CompraService;
 import com.cineunq.service.PeliculaService;
 import jakarta.annotation.PostConstruct;
@@ -42,7 +43,7 @@ public class InitData {
     private CompraService compraService;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
     @PostConstruct
     private void initialize() {
@@ -68,7 +69,7 @@ public class InitData {
         Pelicula p = new PeliculaBuilder().withNombre("The Avengers").withDescripcion("El director de la Agencia SHIELD decide reclutar a un equipo para salvar al mundo de un desastre casi seguro cuando un enemigo inesperado surge como una gran amenaza para la seguridad mundial.").withDuracion(150).withImagen("https://http2.mlstatic.com/D_NQ_NP_888996-MLA32569507268_102019-O.jpg").withAsientos(asientosCreados).build();
         peliculaService.savePelicula(p);
         Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
-        clienteRepository.save(pepe);
+        clienteService.saveCliente(pepe);
         compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L,6L,7L,8L));
     }
 

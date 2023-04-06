@@ -22,7 +22,7 @@ public class Compra {
     @NonNull
     private Cliente clienteCompra;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @NonNull
     private List<Asiento> asientosComprados;
 

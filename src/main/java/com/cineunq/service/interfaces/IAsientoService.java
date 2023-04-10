@@ -15,7 +15,9 @@ public interface IAsientoService {
 
     Asiento saveAsiento(Asiento p);
 
+    List<Asiento> updateAsientos(List<Long> ids) throws NotFoundException;
+
     Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException;
 
-    List<Asiento> getAsientosByMovie(Long id);
+    List<Asiento> getAsientosByPelicula(Long id);
 }

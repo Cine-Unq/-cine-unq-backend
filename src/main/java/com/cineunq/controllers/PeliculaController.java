@@ -23,14 +23,12 @@ public class PeliculaController {
     @GetMapping(produces = "application/json")
     @Operation(summary = "Retorna todas las peliculas",description = "Todas las peliculas")
     public List<Pelicula> getAllPeliculas() {
-        List<Pelicula> peliculas = peliculaService.getAll();
-        return peliculas;
+        return peliculaService.getAll();
     }
 
     @GetMapping(value = "/{id}",produces = "application/json")
     @Operation(summary = "Retorna una pelicula",description = "Devuelve una pelicula si existe")
     public Pelicula getPeliculaByID(@PathVariable("id") String id) throws NotFoundException {
-        Pelicula pelicula = peliculaService.findByID(Long.parseLong(id));
-        return pelicula;
+        return peliculaService.findByID(Long.parseLong(id));
     }
 }

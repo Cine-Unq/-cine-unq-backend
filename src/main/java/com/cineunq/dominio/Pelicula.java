@@ -33,7 +33,7 @@ public class Pelicula {
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @JsonIgnore
     @NonNull
-    private List<Asiento> asientos ;
+    private List<Asiento> asientos;
 
 //    public Pelicula(String nombre, String descripcion, Integer duracion, String imagen, List<Asiento> asientos) {
 //        this.nombre = nombre;

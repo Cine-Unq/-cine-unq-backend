@@ -44,12 +44,12 @@ public class CompraService implements ICompraService {
         if(compra.isPresent()){
             return compra.get();
         }
-        throw new NotFoundException("No se a encontrado la Compra solicitada");
+        throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
     }
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public Compra saveCompra(Long idCliente, Long idPelicula, List<Long> idsAsientosComprados) {
         try{
             Cliente cliente = clienteService.getReferenceById(idCliente);

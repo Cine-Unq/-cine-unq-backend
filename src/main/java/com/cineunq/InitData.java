@@ -70,7 +70,7 @@ public class InitData {
         peliculaService.savePelicula(p);
         Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
         clienteService.saveCliente(pepe);
-        //compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L,6L,7L,8L));
+        compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L,6L,7L,8L));
     }
 
 }

@@ -6,6 +6,7 @@ import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.IAsientoService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,26 +39,28 @@ public class AsientoService implements IAsientoService {
         return repository.save(p);
     }
 
-    public Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException {
-        Asiento asiento = this.findByID(id);
-        asiento.setEstaOcupado(estadoAsiento);
-        return repository.save(asiento);
-    }
-
+    @Transactional(rollbackOn = Exception.class)
+    @Override
     public List<Asiento> updateAsientos(List<Long> idsAsientosComprados) throws NotFoundException {
         List<Asiento> asientos = new ArrayList<>();
         idsAsientosComprados.forEach(idAsiento -> {
             try {
                 asientos.add(this.updateAsiento(idAsiento, EstadoAsiento.OCUPADO));
             } catch (NotFoundException e) {
-                throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
+                throw new MovieUnqLogicException("Asientos : Ocurrio un error al realizar la compra",e);
             }
         });
         return asientos;
     }
 
+    public Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException {
+        Asiento asiento = this.findByID(id);
+        asiento.setEstaOcupado(estadoAsiento);
+        return repository.save(asiento);
+    }
+
     @Override
-    public List<Asiento> getAsientosByMovie(Long id){
-        return repository.findAsientoByMovie(id);
+    public List<Asiento> getAsientosByPelicula(Long id){
+        return repository.findAsientoByPelicula(id);
     }
 }

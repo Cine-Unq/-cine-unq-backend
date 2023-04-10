@@ -1,6 +1,7 @@
 package com.cineunq.controllers;
 
 import com.cineunq.controllers.dto.request.SaveCompraRequest;
+import com.cineunq.controllers.dto.response.AsientoResponse;
 import com.cineunq.controllers.dto.response.CompraResponse;
 import com.cineunq.dominio.Compra;
 import com.cineunq.exceptions.NotFoundException;
@@ -21,8 +22,8 @@ public class CompraController {
     private CompraService service;
 
     @GetMapping
-    public List<Compra> getAll(){
-        return service.getAll();
+    public List<CompraResponse> getAll(){
+        return service.getAll().stream().map(CompraResponse::new).toList();
     }
 
     @GetMapping(path = "/{id}",produces = "application/json")

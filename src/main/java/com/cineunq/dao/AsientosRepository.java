@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AsientosRepository extends JpaRepository<Asiento,Long> {
 
-    @Query("SELECT p.asientos FROM Pelicula p where p.id = ?1 " )
-    List<Asiento> findAsientoByPelicula(Long id);
+    @Query("SELECT p.asientos FROM Pelicula p JOIN p.asientos a WHERE p.id = ?1 ORDER BY a.fila, a.columna" )
+    List<Asiento> findAsientoByMovie(Long idMovie);
 
 }

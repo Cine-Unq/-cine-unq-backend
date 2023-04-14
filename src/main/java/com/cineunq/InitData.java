@@ -52,10 +52,10 @@ public class InitData {
     }
 
     private List<Asiento> crearAsientos(){
-        String letras = "ABCDEFGHIJ";
+        String letras = "ABCDEFGHIJkLMN";
         List<Asiento> asientos = new ArrayList<>();
-        for (int i = 0; i < 4;i++){ //Para las Columnas
-            for(int j = 0; j < 4;j++){ //Para las filas
+        for (int i = 0; i < 14;i++){ //Para las Columnas
+            for(int j = 1; j < 5;j++){ //Para las filas
                 Asiento a = new AsientoBuilder().withEstaOcupado(EstadoAsiento.LIBRE).withNrColumna(Character.toString(letras.charAt(i))).withNrFila(Integer.toString(j)).build();
                 asientos.add(a);
             }

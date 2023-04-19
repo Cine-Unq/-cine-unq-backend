@@ -39,4 +39,8 @@ public class PeliculaService implements IPeliculaService {
     public Optional<Pelicula> findByNombre(String nombre) {
         return repository.findByNombre(nombre);
     }
+
+    public void deletePelicula(Long idPelicula){
+        repository.deleteById(idPelicula);
+    }
 }

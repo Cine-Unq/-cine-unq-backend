@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class Compra {
 
     @Id

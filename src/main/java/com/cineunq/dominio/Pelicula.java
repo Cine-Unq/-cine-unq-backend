@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class Pelicula {
 
     @Id
@@ -30,7 +30,7 @@ public class Pelicula {
     @NonNull
     private String imagen;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
     @JsonIgnore
     @NonNull
     private List<Asiento> asientos;

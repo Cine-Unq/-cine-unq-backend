@@ -2,7 +2,10 @@ package com.cineunq.dominio;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -12,16 +15,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Cliente {
+public class Sala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @NonNull
-    public String nombre;
+    public String nombreSala;
 
-    @NonNull
-    public String correo;
-
+    @OneToMany
+    public List<Asiento> asientosSala;
 }

@@ -1,19 +1,16 @@
 package com.cineunq.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sala {
 
@@ -23,6 +20,17 @@ public class Sala {
 
     public String nombreSala;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
+    @JsonIgnore
     public List<Asiento> asientosSala;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
+    public Funcion funcion;
+
+    @Builder
+    public Sala(@NonNull String nombreSala, List<Asiento> asientosSala, Funcion funcion) {
+        this.nombreSala = nombreSala;
+        this.asientosSala = asientosSala;
+        this.funcion = funcion;
+    }
 }

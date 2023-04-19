@@ -19,18 +19,14 @@ public class Compra {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clienteCompra_id", referencedColumnName = "id")
     @NonNull
     private Cliente clienteCompra;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
-    @NonNull
-    private List<Asiento> asientosComprados;
-
     @OneToOne(fetch = FetchType.LAZY)
     @NonNull
-    private Pelicula pelicula; //Posiblemente se valla
+    private Sala sala;
 
-    @NonNull
     private LocalDate fechaCompra = LocalDate.now();
 
 }

@@ -60,7 +60,7 @@ public class AsientoService implements IAsientoService {
     }
 
     @Override
-    public List<Asiento> getAsientosByPelicula(Long id){
-        return repository.findAsientoByMovie(id);
+    public List<Asiento> getAsientosBySala(Long id){
+        return repository.findAsientoBySala(id);
     }
 }

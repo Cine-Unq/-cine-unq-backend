@@ -10,7 +10,6 @@ public class PeliculaBuilder {
     private String descripcion;
     private Integer duracion;
     private String imagen;
-    private List<Asiento> asientos;
 
     public PeliculaBuilder withNombre(String nombre) {
         this.nombre = nombre;
@@ -32,12 +31,7 @@ public class PeliculaBuilder {
         return this;
     }
 
-    public PeliculaBuilder withAsientos(List<Asiento> asientos) {
-        this.asientos = asientos;
-        return this;
-    }
-
     public Pelicula build() {
-        return new Pelicula(nombre, descripcion, duracion, imagen,asientos);
+        return new Pelicula(nombre, descripcion, duracion, imagen);
     }
 }

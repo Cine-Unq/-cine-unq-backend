@@ -17,6 +17,7 @@ public class PeliculaService implements IPeliculaService {
     @Autowired
     private PeliculaRepository repository;
 
+    @Override
     public void savePelicula(Pelicula p){
         repository.save(p);
     }
@@ -40,7 +41,7 @@ public class PeliculaService implements IPeliculaService {
         return repository.findByNombre(nombre);
     }
 
-    public void deletePelicula(Long idPelicula){
-        repository.deleteById(idPelicula);
+    public List<Pelicula> peliculasConFunciones(){
+        return repository.peliculasConFunciones();
     }
 }

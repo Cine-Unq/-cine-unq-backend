@@ -31,4 +31,9 @@ public class PeliculaController {
     public Pelicula getPeliculaByID(@PathVariable("id") String id) throws NotFoundException {
         return peliculaService.findByID(Long.parseLong(id));
     }
+
+    @GetMapping(value = "/cartelera",produces = "application/json")
+    public List<Pelicula> peliculasEnCartelera(){
+        return peliculaService.peliculasConFunciones();
+    }
 }

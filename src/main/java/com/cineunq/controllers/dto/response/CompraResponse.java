@@ -17,7 +17,7 @@ public class CompraResponse {
     private Compra wrapped;
 
     public String getPelicula(){
-        return wrapped.getPelicula().getNombre();
+        return wrapped.getSala().getFuncion().getPeliculaEnFuncion().getNombre();
     }
 
     public String getCliente(){
@@ -25,7 +25,7 @@ public class CompraResponse {
     }
 
     public List<Long> getAsientos(){
-        return wrapped.getAsientosComprados().stream().map(Asiento::getId).toList();
+        return wrapped.getSala().getAsientosSala().stream().map(Asiento::getId).toList();
     }
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

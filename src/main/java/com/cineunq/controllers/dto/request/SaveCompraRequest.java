@@ -15,6 +15,5 @@ import java.util.List;
 @Setter
 public class SaveCompraRequest {
     private Long idCliente;
-    private List<Long> idsAsientosComprados;
-    private Long idPelicula;
+    private Long idSala;
 }

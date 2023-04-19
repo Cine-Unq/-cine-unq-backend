@@ -27,7 +27,7 @@ public class AsientoController {
 
     @GetMapping("/pelicula/{id}")
     public List<AsientoResponse> getAsientosByPelicula(@PathVariable("id") String id) {
-        List<AsientoResponse> asientos = service.getAsientosByPelicula(Long.parseLong(id)).stream().map(AsientoResponse::new).toList();
+        List<AsientoResponse> asientos = service.getAsientosBySala(Long.parseLong(id)).stream().map(AsientoResponse::new).toList();
         return asientos;
     }
 }

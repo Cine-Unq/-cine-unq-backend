@@ -4,7 +4,7 @@ import com.cineunq.dominio.Cliente;
 
 public interface IClienteService {
 
-    public Cliente getById(Long id);
+    Cliente getById(Long id);
 
-    public Cliente saveCliente(Cliente cliente);
+    Cliente saveCliente(Cliente cliente);
 }

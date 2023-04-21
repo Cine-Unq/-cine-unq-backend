@@ -25,7 +25,7 @@ public class Compra {
 
     @OneToOne(fetch = FetchType.LAZY)
     @NonNull
-    private Sala sala;
+    private Funcion funcion;
 
     private LocalDate fechaCompra = LocalDate.now();
 

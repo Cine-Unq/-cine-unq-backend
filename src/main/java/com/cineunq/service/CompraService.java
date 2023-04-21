@@ -33,6 +33,9 @@ public class CompraService implements ICompraService {
     @Autowired
     private SalaService salaService;
 
+    @Autowired
+    private FuncionService funcionService;
+
     @Override
     public List<Compra> getAll() {
         return repository.findAll();
@@ -47,29 +50,14 @@ public class CompraService implements ICompraService {
         throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
     }
 
-
-//    @Override
-//    @Transactional(rollbackOn = Exception.class)
-//    public Compra saveCompra(Long idCliente, Long idPelicula, List<Long> idsAsientosComprados) {
-//        try{
-//            Cliente cliente = clienteService.getReferenceById(idCliente);
-//            Pelicula pelicula = peliculaService.findByID(idPelicula);
-//            List<Asiento> asientos = asientoService.updateAsientos(idsAsientosComprados);
-//            Compra compra = new Compra(cliente,asientos,pelicula);
-//            return repository.save(compra);
-//        }catch (Exception e){
-//            throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
-//        }
-//    }
-
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Compra saveCompra(Long idCliente, Long idSala) {
+    public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
         try{
             Cliente cliente = clienteService.getReferenceById(idCliente);
-            Sala sala = salaService.findById(idSala);
-            asientoService.updateAsientos(sala.getAsientosSala().stream().map(Asiento::getId).toList());
-            Compra compra = new Compra(cliente,sala);
+            Funcion funcion = funcionService.findById(idFuncion);
+            asientoService.updateAsientos(asientos);
+            Compra compra = new Compra(cliente,funcion);
             return repository.save(compra);
         }catch (Exception e){
             throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);

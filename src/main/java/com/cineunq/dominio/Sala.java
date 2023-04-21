@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sala {
 
@@ -18,19 +18,23 @@ public class Sala {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
+    @NonNull
     public String nombreSala;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
-    @JsonIgnore
-    public List<Asiento> asientosSala;
+    @NonNull
+    public Integer cantFilas;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
-    public Funcion funcion;
+    @NonNull
+    private String columnas ;
+
+    @NonNull
+    private String tipoSala ;
 
     @Builder
-    public Sala(@NonNull String nombreSala, List<Asiento> asientosSala, Funcion funcion) {
+    public Sala(@NonNull String nombreSala, @NonNull Integer cantFilas, @NonNull String columnas, @NonNull String tipoSala) {
         this.nombreSala = nombreSala;
-        this.asientosSala = asientosSala;
-        this.funcion = funcion;
+        this.cantFilas = cantFilas;
+        this.columnas = columnas;
+        this.tipoSala = tipoSala;
     }
 }

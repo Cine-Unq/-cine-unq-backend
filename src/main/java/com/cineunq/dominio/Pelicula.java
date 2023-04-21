@@ -18,6 +18,7 @@ public class Pelicula {
     private String nombre;
 
     @NonNull
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     @NonNull

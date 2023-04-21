@@ -1,8 +1,6 @@
 package com.cineunq.controllers.dto.request;
 
-import com.cineunq.dominio.Asiento;
-import com.cineunq.dominio.Cliente;
-import com.cineunq.dominio.Pelicula;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +14,5 @@ import java.util.List;
 public class SaveCompraRequest {
     private Long idCliente;
     private Long idSala;
+    private List<Long> idsAsientos;
 }

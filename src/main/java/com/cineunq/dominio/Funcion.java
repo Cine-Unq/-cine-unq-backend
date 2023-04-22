@@ -22,7 +22,7 @@ public class Funcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY)
     public Pelicula peliculaEnFuncion;
 
     public LocalDateTime horaInicio;
@@ -33,11 +33,15 @@ public class Funcion {
     @JsonIgnore
     public List<Asiento> asientosSala;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Sala sala;
+
     @Builder
     public Funcion(Pelicula peliculaEnFuncion, LocalDateTime horaInicio,Sala sala) {
         this.peliculaEnFuncion = peliculaEnFuncion;
         this.horaInicio = horaInicio;
         this.horaFin = horaInicio.plusMinutes(peliculaEnFuncion.getDuracion());
+        this.sala = sala;
         crearAsientos(sala);
     }
 

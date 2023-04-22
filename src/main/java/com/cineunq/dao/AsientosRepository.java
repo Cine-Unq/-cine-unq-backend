@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AsientosRepository extends JpaRepository<Asiento,Long> {
 
-    @Query("SELECT s.asientosSala FROM Sala s JOIN s.asientosSala a WHERE s.id = ?1 ORDER BY a.fila, a.columna" )
-    List<Asiento> findAsientoBySala(Long idSala);
+//    @Query("SELECT s.asientosSala FROM Sala s JOIN s.asientosSala a WHERE s.id = ?1 ORDER BY a.fila, a.columna" )
+//    List<Asiento> findAsientoBySala(Long idSala);
 
 }

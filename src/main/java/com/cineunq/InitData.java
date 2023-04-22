@@ -7,6 +7,7 @@ import com.cineunq.dominio.*;
 import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.dominio.builder.AsientoBuilder;
 import com.cineunq.dominio.builder.PeliculaBuilder;
+import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.*;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
@@ -36,15 +37,16 @@ public class InitData {
     private FuncionService funcionService;
 
     @Autowired
-    public InitData(PeliculaService peliculaService,CompraService compraService, ClienteService clienteService, SalaService salaService) {
+    public InitData(PeliculaService peliculaService,CompraService compraService, ClienteService clienteService, SalaService salaService,FuncionService funcionService) {
         this.peliculaService = peliculaService;
         this.compraService = compraService;
         this.clienteService = clienteService;
         this.salaService = salaService;
+        this.funcionService = funcionService;
     }
 
     @PostConstruct
-    private void initialize() {
+    private void initialize() throws NotFoundException {
             logger.info("Init Data Using MySql DB");
             fireInitialData();
     }
@@ -86,26 +88,33 @@ public class InitData {
         return salas;
     }
 
-    private void fireInitialData(){
-        List<Pelicula> peliculas = crearPeliculas();
-        List<Sala> salas = crearSalas();
+    private void fireInitialData() throws NotFoundException {
+        try {
+            List<Pelicula> peliculas = crearPeliculas();
+            List<Sala> salas = crearSalas();
 
-        Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
-        Cliente coki = new Cliente("Coki","cokiArgento@gmail.com.ar");
-        this.clienteService.saveCliente(pepe);
-        this.clienteService.saveCliente(coki);
+            Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
+            Cliente coki = new Cliente("Coki","cokiArgento@gmail.com.ar");
+            this.clienteService.saveCliente(pepe);
+            this.clienteService.saveCliente(coki);
 
-        Funcion f1 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now()).sala(salas.get(0)).build();
-        this.funcionService.saveFuncion(f1);
+            Funcion f1 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now()).sala(salas.get(0)).build();
+            this.funcionService.saveFuncion(f1,1L);
 
-        Funcion f2 = Funcion.builder().peliculaEnFuncion(peliculas.get(1)).horaInicio(LocalDateTime.now()).sala(salas.get(1)).build();
-        this.funcionService.saveFuncion(f2);
+            Funcion f2 = Funcion.builder().peliculaEnFuncion(peliculas.get(1)).horaInicio(LocalDateTime.now()).sala(salas.get(1)).build();
+            this.funcionService.saveFuncion(f2,2L);
 
-        Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.of(2023,4,21,22,00)).sala(salas.get(2)).build();
-        this.funcionService.saveFuncion(f3);
+            //LocalDateTime.of(2023,4,21,22, 0)
+            Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.now().plusMinutes(10)).sala(salas.get(0)).build();
+            this.funcionService.saveFuncion(f3,1L);
 
-        this.compraService.saveCompra(1L,1L);
-        this.compraService.saveCompra(2L,2L);
+            this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
+            //TODO Hacer comprobacion que los asientos sean de la funcion correspondiente
+            this.compraService.saveCompra(2L,2L,List.of(57L,58L,59L));
+        }catch (Exception e){
+
+        }
+
     }
 
 }

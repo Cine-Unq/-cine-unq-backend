@@ -25,9 +25,9 @@ public class AsientoController {
         return service.updateAsiento(a.getId());
     }
 
-    @GetMapping("/pelicula/{id}")
+    @GetMapping("/pelicula/funcion/{id}")
     public List<AsientoResponse> getAsientosByPelicula(@PathVariable("id") String id) {
-        List<AsientoResponse> asientos = service.getAsientosBySala(Long.parseLong(id)).stream().map(AsientoResponse::new).toList();
+        List<AsientoResponse> asientos = service.getAsientosPorFuncion(Long.parseLong(id)).stream().map(AsientoResponse::new).toList();
         return asientos;
     }
 }

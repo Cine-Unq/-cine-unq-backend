@@ -19,5 +19,5 @@ public interface IAsientoService {
 
     Asiento updateAsiento(Long id) throws NotFoundException;
 
-    List<Asiento> getAsientosBySala(Long id);
+    List<Asiento> getAsientosPorFuncion(Long id);
 }

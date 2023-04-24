@@ -103,13 +103,14 @@ public class InitData {
             Funcion f2 = Funcion.builder().peliculaEnFuncion(peliculas.get(1)).horaInicio(LocalDateTime.now()).sala(salas.get(1)).build();
             this.funcionService.saveFuncion(f2,2L);
 
-            //LocalDateTime.of(2023,4,21,22, 0)
-            Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.now().plusHours(4)).sala(salas.get(0)).build();
-            this.funcionService.saveFuncion(f3,1L);
+//            Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.now().plusHours(4)).sala(salas.get(0)).build();
+//            this.funcionService.saveFuncion(f3,1L);
 
-            this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
+            Funcion f4 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now().plusHours(4)).sala(salas.get(1)).build();
+            this.funcionService.saveFuncion(f4,1L);
 
             //TODO Hacer comprobacion que los asientos sean de la funcion correspondiente
+            this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
             this.compraService.saveCompra(2L,2L,List.of(57L,58L,59L));
 
 

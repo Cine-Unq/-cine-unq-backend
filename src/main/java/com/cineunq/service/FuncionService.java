@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FuncionService implements IFuncionService {
@@ -56,8 +55,17 @@ public class FuncionService implements IFuncionService {
 
     }
 
-    public List<Funcion> funcionesPorPelicula(String nombrePeli){
-        return funcionRepository.funcionesPorPelicula(nombrePeli);
+    public Map<String,List<Funcion>> funcionesPorPelicula(Long idPelicula){
+        List<Funcion> funcionesPelicula = funcionRepository.funcionesPorPelicula(idPelicula);
+        Map<String,List<Funcion>> funcionesPorSala = new HashMap<>();
+        for (Funcion f : funcionesPelicula) {
+            if(funcionesPorSala.get(f.getSala().getTipoSala()) != null){
+                funcionesPorSala.get(f.getSala().getTipoSala()).add(f);
+            }else{
+                funcionesPorSala.put(f.getSala().getTipoSala(),List.of(f));
+            }
+        }
+        return funcionesPorSala;
     }
 
     public Funcion findById(Long id) throws NotFoundException {

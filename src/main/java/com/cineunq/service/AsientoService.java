@@ -2,7 +2,6 @@ package com.cineunq.service;
 
 import com.cineunq.dao.AsientosRepository;
 import com.cineunq.dominio.Asiento;
-import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.IAsientoService;
@@ -45,7 +44,7 @@ public class AsientoService implements IAsientoService {
         List<Asiento> asientos = new ArrayList<>();
         idsAsientosComprados.forEach(idAsiento -> {
             try {
-                asientos.add(this.updateAsiento(idAsiento, EstadoAsiento.OCUPADO));
+                asientos.add(this.updateAsiento(idAsiento));
             } catch (NotFoundException e) {
                 throw new MovieUnqLogicException("Asientos : Ocurrio un error al realizar la compra",e);
             }
@@ -53,9 +52,9 @@ public class AsientoService implements IAsientoService {
         return asientos;
     }
 
-    public Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException {
+    public Asiento updateAsiento(Long id) throws NotFoundException {
         Asiento asiento = this.findByID(id);
-        asiento.setEstaOcupado(estadoAsiento);
+        asiento.ocuparAsiento();
         return repository.save(asiento);
     }
 
@@ -64,8 +63,4 @@ public class AsientoService implements IAsientoService {
         return null;
     }
 
-//    @Override
-//    public List<Asiento> getAsientosBySala(Long id){
-//        return repository.findAsientoBySala(id);
-//    }
 }

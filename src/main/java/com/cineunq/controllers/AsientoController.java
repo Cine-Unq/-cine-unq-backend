@@ -22,7 +22,7 @@ public class AsientoController {
 
     @PutMapping
     public Asiento actualizarAsiento(@RequestBody ActualizarAsientoRequest a) throws NotFoundException {
-        return service.updateAsiento(a.getId(),a.getEstaOcupado());
+        return service.updateAsiento(a.getId());
     }
 
     @GetMapping("/pelicula/{id}")

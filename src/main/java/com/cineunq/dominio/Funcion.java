@@ -29,11 +29,13 @@ public class Funcion {
 
     public LocalDateTime horaFin;
 
+    //TODO ver de usar CascadeType.All y removeOrphan
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
     @JsonIgnore
     public List<Asiento> asientosSala;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    //TODO Antes : @OneToOne()
+    @ManyToOne
     private Sala sala;
 
     @Builder
@@ -42,17 +44,19 @@ public class Funcion {
         this.horaInicio = horaInicio;
         this.horaFin = horaInicio.plusMinutes(peliculaEnFuncion.getDuracion());
         this.sala = sala;
+        this.asientosSala = new ArrayList<>();
         crearAsientos(sala);
     }
 
     private void crearAsientos(Sala sala){
-        List<Asiento> asientos = new ArrayList<>();
+        //asientosSala.clear()
+        //List<Asiento> asientos = new ArrayList<>();
         for (int i = 0; i < sala.getColumnas().length();i++){ //Para las Columnas
             for(int j = 1; j < sala.getCantFilas();j++){ //Para las filas
-                Asiento a = new AsientoBuilder().withEstaOcupado(EstadoAsiento.LIBRE).withNrColumna(Character.toString(sala.getColumnas().charAt(i))).withNrFila(Integer.toString(j)).build();
-                asientos.add(a);
+                Asiento asiento = new AsientoBuilder().withEstaOcupado(EstadoAsiento.LIBRE).withNrColumna(Character.toString(sala.getColumnas().charAt(i))).withNrFila(Integer.toString(j)).build();
+                asientosSala.add(asiento);
             }
         }
-        asientosSala = asientos;
+        //asientosSala = asientos;
     }
 }

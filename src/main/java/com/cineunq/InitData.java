@@ -81,22 +81,21 @@ public class InitData {
 
     private List<Sala> crearSalas(){
         Sala s1 = Sala.builder().tipoSala("2D").nombreSala("S1").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
-        Sala s2 = Sala.builder().tipoSala("3D").nombreSala("S1").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
-        Sala s3 = Sala.builder().tipoSala("4D").nombreSala("S1").columnas("ABCDEFG").cantFilas(5).build();
+        Sala s2 = Sala.builder().tipoSala("3D").nombreSala("S2").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
+        Sala s3 = Sala.builder().tipoSala("4D").nombreSala("S3").columnas("ABCDEFG").cantFilas(5).build();
         List<Sala> salas = List.of(s1,s2,s3);
         salas.forEach(sala -> this.salaService.saveSala(sala));
         return salas;
     }
 
     private void fireInitialData() throws NotFoundException {
-        try {
-            List<Pelicula> peliculas = crearPeliculas();
-            List<Sala> salas = crearSalas();
-
             Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
             Cliente coki = new Cliente("Coki","cokiArgento@gmail.com.ar");
             this.clienteService.saveCliente(pepe);
             this.clienteService.saveCliente(coki);
+
+            List<Pelicula> peliculas = crearPeliculas();
+            List<Sala> salas = crearSalas();
 
             Funcion f1 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now()).sala(salas.get(0)).build();
             this.funcionService.saveFuncion(f1,1L);
@@ -105,15 +104,14 @@ public class InitData {
             this.funcionService.saveFuncion(f2,2L);
 
             //LocalDateTime.of(2023,4,21,22, 0)
-            Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.now().plusMinutes(10)).sala(salas.get(0)).build();
+            Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.now().plusHours(4)).sala(salas.get(0)).build();
             this.funcionService.saveFuncion(f3,1L);
 
             this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
+
             //TODO Hacer comprobacion que los asientos sean de la funcion correspondiente
             this.compraService.saveCompra(2L,2L,List.of(57L,58L,59L));
-        }catch (Exception e){
 
-        }
 
     }
 

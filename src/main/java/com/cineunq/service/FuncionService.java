@@ -11,8 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.Instant;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,7 @@ public class FuncionService implements IFuncionService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Funcion saveFuncion(Funcion f,Long idSala) throws NotFoundException {
+    public Funcion saveFuncion(Funcion f,Long idSala) {
         try {
             Sala s1 = salaService.findById(idSala);
             Pelicula p1 = peliculaService.findByID(f.getPeliculaEnFuncion().getId());

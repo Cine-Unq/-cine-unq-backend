@@ -27,4 +27,8 @@ public class Asiento {
     @NonNull
     private String fila;
 
+    public void ocuparAsiento(){
+        this.estaOcupado = EstadoAsiento.OCUPADO;
+    }
+
 }

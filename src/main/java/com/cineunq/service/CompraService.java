@@ -3,8 +3,6 @@ package com.cineunq.service;
 import com.cineunq.dao.ClienteRepository;
 import com.cineunq.dao.CompraRepository;
 import com.cineunq.dominio.*;
-import com.cineunq.dominio.enums.EstadoAsiento;
-import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.ICompraService;
 import jakarta.transaction.Transactional;
@@ -53,14 +51,10 @@ public class CompraService implements ICompraService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
-        try{
             Cliente cliente = clienteService.getReferenceById(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
             asientoService.updateAsientos(asientos);
             Compra compra = new Compra(cliente,funcion);
             return repository.save(compra);
-        }catch (Exception e){
-            throw new MovieUnqLogicException("Compra : Ocurrio un error al realizar la compra",e);
-        }
     }
 }

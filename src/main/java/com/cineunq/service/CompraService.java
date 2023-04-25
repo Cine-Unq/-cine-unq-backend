@@ -16,23 +16,21 @@ import java.util.Optional;
 @Service
 public class CompraService implements ICompraService {
 
-    @Autowired
     private CompraRepository repository;
 
-    @Autowired
     private AsientoService asientoService;
 
-    @Autowired
-    private PeliculaService peliculaService;
+    private ClienteService clienteService;
 
-    @Autowired
-    private ClienteRepository clienteService;
-
-    @Autowired
-    private SalaService salaService;
-
-    @Autowired
     private FuncionService funcionService;
+
+    @Autowired
+    public CompraService(CompraRepository repository, AsientoService asientoService, ClienteService clienteService, FuncionService funcionService) {
+        this.repository = repository;
+        this.asientoService = asientoService;
+        this.clienteService = clienteService;
+        this.funcionService = funcionService;
+    }
 
     @Override
     public List<Compra> getAll() {
@@ -51,7 +49,7 @@ public class CompraService implements ICompraService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
-            Cliente cliente = clienteService.getReferenceById(idCliente);
+            Cliente cliente = clienteService.findByID(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
             asientoService.updateAsientos(asientos);
             Compra compra = new Compra(cliente,funcion);

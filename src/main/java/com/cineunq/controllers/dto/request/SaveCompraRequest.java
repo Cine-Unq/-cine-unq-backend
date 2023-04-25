@@ -13,6 +13,6 @@ import java.util.List;
 @Setter
 public class SaveCompraRequest {
     private Long idCliente;
-    private Long idSala;
+    private Long idFuncion;
     private List<Long> idsAsientos;
 }

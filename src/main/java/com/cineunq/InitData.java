@@ -1,8 +1,6 @@
 package com.cineunq;
 
-import com.cineunq.dao.AsientosRepository;
-import com.cineunq.dao.ClienteRepository;
-import com.cineunq.dao.CompraRepository;
+
 import com.cineunq.dominio.*;
 import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.dominio.builder.AsientoBuilder;
@@ -13,10 +11,8 @@ import jakarta.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

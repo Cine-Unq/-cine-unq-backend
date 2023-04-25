@@ -31,6 +31,11 @@ public class CompraController {
         return new CompraResponse(service.findById(Long.parseLong(id)));
     }
 
+    @GetMapping(path = "/cliente/{id}")
+    public List<CompraResponse> getComprasPorCliente(@PathVariable("id") String id){
+        return service.getComprasPorCliente(Long.parseLong(id)).stream().map(CompraResponse::new).toList();
+    }
+
     @PostMapping
     public Compra saveCompra(@RequestBody SaveCompraRequest compra){
         return service.saveCompra(compra.getIdCliente(),compra.getIdFuncion(),compra.getIdsAsientos());

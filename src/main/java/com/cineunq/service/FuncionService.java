@@ -18,15 +18,18 @@ import java.util.*;
 @Service
 public class FuncionService implements IFuncionService {
 
-    @Autowired
     private FuncionRepository funcionRepository;
 
-    @Autowired
     private SalaService salaService;
 
-    @Autowired
     private PeliculaService peliculaService;
 
+    @Autowired
+    public FuncionService(FuncionRepository funcionRepository, SalaService salaService, PeliculaService peliculaService) {
+        this.funcionRepository = funcionRepository;
+        this.salaService = salaService;
+        this.peliculaService = peliculaService;
+    }
 
     @Override
     public Funcion saveFuncion(Funcion f) {

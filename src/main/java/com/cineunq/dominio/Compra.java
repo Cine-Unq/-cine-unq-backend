@@ -29,4 +29,8 @@ public class Compra {
 
     private LocalDate fechaCompra = LocalDate.now();
 
+    @OneToMany
+    @NonNull
+    private List<Asiento> asientosComprados;
+
 }

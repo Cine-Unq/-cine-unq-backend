@@ -9,12 +9,22 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @AllArgsConstructor
 public class CompraResponse {
 
     private Compra wrapped;
+
+    public String getSala(){
+        return wrapped.getFuncion().getSala().getNombreSala();
+    }
+
+    public String getFuncion(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return formatter.format(wrapped.getFuncion().getHoraInicio());
+    }
 
     public String getPelicula(){
         return wrapped.getFuncion().getPeliculaEnFuncion().getNombre();
@@ -25,7 +35,7 @@ public class CompraResponse {
     }
 
     public List<Long> getAsientos(){
-        return wrapped.getFuncion().getAsientosSala().stream().map(Asiento::getId).toList();
+        return wrapped.getAsientosComprados().stream().map(Asiento::getId).toList();
     }
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

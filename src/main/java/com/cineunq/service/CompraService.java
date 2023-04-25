@@ -32,6 +32,10 @@ public class CompraService implements ICompraService {
         this.funcionService = funcionService;
     }
 
+    public List<Compra> getComprasPorCliente(Long idCliente){
+        return repository.findCompraByCliente(idCliente);
+    }
+
     @Override
     public List<Compra> getAll() {
         return repository.findAll();
@@ -51,8 +55,8 @@ public class CompraService implements ICompraService {
     public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
             Cliente cliente = clienteService.findByID(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
-            asientoService.updateAsientos(asientos);
-            Compra compra = new Compra(cliente,funcion);
+            List<Asiento> asientosComprados = asientoService.updateAsientos(asientos);
+            Compra compra = new Compra(cliente,funcion,asientosComprados);
             return repository.save(compra);
     }
 }

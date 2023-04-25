@@ -20,10 +20,6 @@ public class AsientoController {
     @Autowired
     private AsientoService service;
 
-    @PutMapping
-    public Asiento actualizarAsiento(@RequestBody ActualizarAsientoRequest a) throws NotFoundException {
-        return service.updateAsiento(a.getId());
-    }
 
     @GetMapping("/pelicula/funcion/{id}")
     public List<AsientoResponse> getAsientosByPelicula(@PathVariable("id") String id) {

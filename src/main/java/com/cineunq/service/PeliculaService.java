@@ -4,6 +4,7 @@ package com.cineunq.service;
 import com.cineunq.dao.PeliculaRepository;
 import com.cineunq.dominio.Pelicula;
 import com.cineunq.exceptions.NotFoundException;
+import com.cineunq.service.interfaces.IPeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class PeliculaService implements IPeliculaService {
     @Autowired
     private PeliculaRepository repository;
 
+    @Override
     public void savePelicula(Pelicula p){
         repository.save(p);
     }
@@ -37,5 +39,9 @@ public class PeliculaService implements IPeliculaService {
     @Override
     public Optional<Pelicula> findByNombre(String nombre) {
         return repository.findByNombre(nombre);
+    }
+
+    public List<Pelicula> peliculasConFunciones(){
+        return repository.peliculasConFunciones();
     }
 }

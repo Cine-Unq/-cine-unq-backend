@@ -1,4 +1,4 @@
-package com.cineunq.controllers.dto;
+package com.cineunq.controllers.dto.request;
 
 import com.cineunq.dominio.enums.EstadoAsiento;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ActualizarAsientoDto {
+public class ActualizarAsientoRequest {
     private Long id;
     private EstadoAsiento estaOcupado;
 }

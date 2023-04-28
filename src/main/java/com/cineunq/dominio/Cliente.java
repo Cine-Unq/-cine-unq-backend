@@ -1,5 +1,6 @@
 package com.cineunq.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cliente {
 
     @Id

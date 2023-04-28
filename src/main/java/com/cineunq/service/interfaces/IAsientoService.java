@@ -1,4 +1,4 @@
-package com.cineunq.service;
+package com.cineunq.service.interfaces;
 
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;
@@ -13,9 +13,11 @@ public interface IAsientoService {
 
     Asiento findByID(Long id) throws NotFoundException;
 
-    void saveAsiento(Asiento p);
+    Asiento saveAsiento(Asiento p);
 
-    Asiento updateAsiento(Long id, EstadoAsiento estadoAsiento) throws NotFoundException;
+    List<Asiento> updateAsientos(List<Long> ids) throws NotFoundException;
 
-    List<Asiento> getAsientosByMovie(Long id);
+    Asiento updateAsiento(Long id) throws NotFoundException;
+
+    List<Asiento> getAsientosPorFuncion(Long id);
 }

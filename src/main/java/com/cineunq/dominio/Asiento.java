@@ -8,7 +8,9 @@ import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
+@ToString
+//@Builder
 public class Asiento {
 
     @Id
@@ -24,5 +26,9 @@ public class Asiento {
 
     @NonNull
     private String fila;
+
+    public void ocuparAsiento(){
+        this.estaOcupado = EstadoAsiento.OCUPADO;
+    }
 
 }

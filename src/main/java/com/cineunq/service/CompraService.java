@@ -3,6 +3,7 @@ package com.cineunq.service;
 import com.cineunq.dao.ClienteRepository;
 import com.cineunq.dao.CompraRepository;
 import com.cineunq.dominio.*;
+import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.ICompraService;
 import jakarta.transaction.Transactional;
@@ -50,12 +51,20 @@ public class CompraService implements ICompraService {
         throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
     }
 
+    public Compra getCompraQR(Long id) throws NotFoundException {
+        Optional<Compra> compra = repository.findById(id);
+        if(compra.isPresent()){
+            return compra.get();
+        }
+        throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
+    }
+
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
             Cliente cliente = clienteService.findByID(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
-            List<Asiento> asientosComprados = asientoService.updateAsientos(asientos);
+            List<Asiento> asientosComprados = asientoService.updateAsientos(asientos, EstadoAsiento.RESERVADO);
             Compra compra = new Compra(cliente,funcion,asientosComprados);
             return repository.save(compra);
     }

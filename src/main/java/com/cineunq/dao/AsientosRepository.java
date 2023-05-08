@@ -13,4 +13,5 @@ public interface AsientosRepository extends JpaRepository<Asiento,Long> {
     @Query("SELECT f.asientosSala FROM Funcion f JOIN f.asientosSala a  WHERE f.id = ?1 ORDER BY a.fila , a.columna" )
     List<Asiento> findAsientoByFuncion(Long idFuncion);
 
+
 }

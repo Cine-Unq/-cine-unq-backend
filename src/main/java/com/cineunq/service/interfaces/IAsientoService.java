@@ -15,9 +15,9 @@ public interface IAsientoService {
 
     Asiento saveAsiento(Asiento p);
 
-    List<Asiento> updateAsientos(List<Long> ids) throws NotFoundException;
+    List<Asiento> updateAsientos(List<Long> ids,EstadoAsiento estado) throws NotFoundException;
 
-    Asiento updateAsiento(Long id) throws NotFoundException;
+    Asiento updateAsiento(Long id,EstadoAsiento estado) throws NotFoundException;
 
     List<Asiento> getAsientosPorFuncion(Long id);
 }

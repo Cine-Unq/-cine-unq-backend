@@ -1,6 +1,7 @@
 package com.cineunq.dominio;
 
 import com.cineunq.dominio.enums.EstadoAsiento;
+import com.cineunq.exceptions.MovieUnqLogicException;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ public class Asiento {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private EstadoAsiento estaOcupado;
+    private EstadoAsiento estado;
 
     @NonNull
     private String columna;
@@ -28,7 +29,24 @@ public class Asiento {
     private String fila;
 
     public void ocuparAsiento(){
-        this.estaOcupado = EstadoAsiento.OCUPADO;
+        if(estado == EstadoAsiento.LIBRE){
+            throw new MovieUnqLogicException("No se puede ocupar un asiento que no fue reservado");
+        }
+        if(estado == EstadoAsiento.OCUPADO){
+            throw new MovieUnqLogicException("El asiento ya fue ocupado");
+        }
+        estado = EstadoAsiento.OCUPADO;
+    }
+
+    public void reservarAsiento(){
+        if(estado == EstadoAsiento.OCUPADO){
+            throw new MovieUnqLogicException("No se puede ocupar un asiento que ya fue ocupado");
+
+        }
+        if(estado == EstadoAsiento.RESERVADO){
+            throw new MovieUnqLogicException("El asiento ya fue reservado");
+        }
+        estado = EstadoAsiento.RESERVADO;
     }
 
 }

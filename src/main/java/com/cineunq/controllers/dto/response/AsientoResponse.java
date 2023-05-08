@@ -9,7 +9,7 @@ public class AsientoResponse {
     private Asiento wrapped;
 
     public boolean getEstaOcupado(){
-        return wrapped.getEstaOcupado() == EstadoAsiento.LIBRE;
+        return wrapped.getEstado() == EstadoAsiento.LIBRE;
     }
 
     public String getColumna() {

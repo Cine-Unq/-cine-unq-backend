@@ -2,6 +2,7 @@ package com.cineunq.controllers.dto.response;
 
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.Compra;
+import com.cineunq.dominio.enums.EstadoAsiento;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -34,8 +35,12 @@ public class CompraResponse {
         return wrapped.getClienteCompra().getCorreo();
     }
 
-    public List<Long> getAsientos(){
-        return wrapped.getAsientosComprados().stream().map(Asiento::getId).toList();
+    public List<Long> getAsientosReservados(){
+        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.RESERVADO).map(Asiento::getId).toList();
+    }
+
+    public List<Long> getAsientosOcupados(){
+        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.OCUPADO).map(Asiento::getId).toList();
     }
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

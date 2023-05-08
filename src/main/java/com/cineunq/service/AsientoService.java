@@ -2,6 +2,8 @@ package com.cineunq.service;
 
 import com.cineunq.dao.AsientosRepository;
 import com.cineunq.dominio.Asiento;
+import com.cineunq.dominio.Compra;
+import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.IAsientoService;
@@ -9,15 +11,16 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AsientoService implements IAsientoService {
 
     @Autowired
     private AsientosRepository repository;
+
+    @Autowired
+    private CompraService compraService;
 
     @Override
     public List<Asiento> getAll() {
@@ -40,11 +43,11 @@ public class AsientoService implements IAsientoService {
 
     @Transactional(rollbackOn = Exception.class)
     @Override
-    public List<Asiento> updateAsientos(List<Long> idsAsientosComprados) throws NotFoundException {
+    public List<Asiento> updateAsientos(List<Long> idsAsientosComprados,EstadoAsiento estado) throws NotFoundException {
         List<Asiento> asientos = new ArrayList<>();
         idsAsientosComprados.forEach(idAsiento -> {
             try {
-                asientos.add(this.updateAsiento(idAsiento));
+                asientos.add(this.updateAsiento(idAsiento,estado));
             } catch (NotFoundException e) {
                 throw new MovieUnqLogicException("Asientos : Ocurrio un error al realizar la compra",e);
             }
@@ -52,9 +55,13 @@ public class AsientoService implements IAsientoService {
         return asientos;
     }
 
-    public Asiento updateAsiento(Long id) throws NotFoundException {
+    public Asiento updateAsiento(Long id,EstadoAsiento estado) throws NotFoundException {
         Asiento asiento = this.findByID(id);
-        asiento.ocuparAsiento();
+        if (estado == EstadoAsiento.OCUPADO) {
+            asiento.ocuparAsiento();
+        } else {
+            asiento.reservarAsiento();
+        }
         return repository.save(asiento);
     }
 
@@ -63,4 +70,20 @@ public class AsientoService implements IAsientoService {
         return repository.findAsientoByFuncion(id);
     }
 
+
+    public void registrarAsientosOcupados(List<Long> asientos, Long idCliente , Long idCompra) {
+        Compra compra = compraService.findById(idCompra);
+        if(!Objects.equals(compra.getClienteCompra().getId(), idCliente)){
+            throw new MovieUnqLogicException("La compra no corresponde con el cliente");
+        }
+        if(!correspondenAsientosConCompra(compra.getAsientosComprados(),asientos)){
+            throw new MovieUnqLogicException("Los asientos no corresponden con los de la compra");
+        }
+        updateAsientos(asientos,EstadoAsiento.OCUPADO);
+    }
+
+    public boolean correspondenAsientosConCompra(List<Asiento> asientosCompra, List<Long> asientosIds){
+        List<Long> asientosCompraSorted = asientosCompra.stream().map(Asiento::getId).toList();
+        return new HashSet<>(asientosCompraSorted).containsAll(asientosIds);
+    }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/asientos")
+@RequestMapping("/asientos/")
 @Tag(name = "Asientos", description = "Endpoints para los asientos")
 @CrossOrigin(origins= "*", allowedHeaders = "*")
 public class AsientoController {
@@ -20,13 +20,13 @@ public class AsientoController {
     private AsientoService service;
 
 
-    @GetMapping("/pelicula/funcion/{id}")
-    public List<AsientoResponse> getAsientosByPelicula(@PathVariable("id") String id) {
+    @GetMapping("pelicula/funcion/{id}")
+    public List<AsientoResponse> getAsientosByFuncionPelicula(@PathVariable("id") String id) {
         List<AsientoResponse> asientos = service.getAsientosPorFuncion(Long.parseLong(id)).stream().map(AsientoResponse::new).toList();
         return asientos;
     }
 
-    @PostMapping ("admin/pelicula/funcion")
+    @PostMapping ("pelicula/funcion")
     @Operation(summary = "Endpoint para registrar el escaneo de un codigo QR")
     public void registrarAsientosOcupados(@RequestBody ActualizarAsientoRequest asientos) {
         service.registrarAsientosOcupados(asientos.getAsientos(),asientos.getIdCliente(),asientos.getIdCompra());

@@ -1,6 +1,7 @@
 package com.cineunq;
 
 
+import com.cineunq.dao.IRolesRepository;
 import com.cineunq.dominio.*;
 import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.dominio.builder.AsientoBuilder;
@@ -11,6 +12,7 @@ import jakarta.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -26,19 +28,25 @@ public class InitData {
 
     private CompraService compraService;
 
-    private ClienteService clienteService;
+    private UsuarioService usuarioService;
 
     private SalaService salaService;
 
     private FuncionService funcionService;
 
+    private IRolesRepository rolesRepository;
+
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public InitData(PeliculaService peliculaService,CompraService compraService, ClienteService clienteService, SalaService salaService,FuncionService funcionService) {
+    public InitData(PeliculaService peliculaService, CompraService compraService, UsuarioService usuarioService, SalaService salaService, FuncionService funcionService,IRolesRepository rolesRepository,PasswordEncoder passwordEncoder) {
         this.peliculaService = peliculaService;
         this.compraService = compraService;
-        this.clienteService = clienteService;
+        this.usuarioService = usuarioService;
         this.salaService = salaService;
         this.funcionService = funcionService;
+        this.rolesRepository = rolesRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -85,10 +93,20 @@ public class InitData {
     }
 
     private void fireInitialData() throws NotFoundException {
-            Cliente pepe = new Cliente("Pepe","pepeArgento@gmail.com.ar");
-            Cliente coki = new Cliente("Coki","cokiArgento@gmail.com.ar");
-            this.clienteService.saveCliente(pepe);
-            this.clienteService.saveCliente(coki);
+
+            Roles rolUser = new Roles(1L,"USER");
+            Roles rolAdmin = new Roles(2L,"ADMIN");
+
+            rolesRepository.save(rolUser);
+            rolesRepository.save(rolAdmin);
+
+            Usuario pepe = new Usuario(1L,"Pepe","pepeArgento@gmail.com.ar",passwordEncoder.encode("Pepe123"),List.of(rolUser));
+            Usuario coki = new Usuario(2L,"Coki","cokiArgento@gmail.com.ar",passwordEncoder.encode("Coki123"),List.of(rolUser));
+            Usuario guti = new Usuario(3L,"Guti","guti@gmail.com.ar",passwordEncoder.encode("Guti123"),List.of(rolAdmin));
+
+            this.usuarioService.saveCliente(pepe);
+            this.usuarioService.saveCliente(coki);
+            this.usuarioService.saveCliente(guti);
 
             List<Pelicula> peliculas = crearPeliculas();
             List<Sala> salas = crearSalas();

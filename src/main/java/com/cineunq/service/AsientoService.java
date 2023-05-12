@@ -73,7 +73,7 @@ public class AsientoService implements IAsientoService {
 
     public void registrarAsientosOcupados(List<Long> asientos, Long idCliente , Long idCompra) {
         Compra compra = compraService.findById(idCompra);
-        if(!Objects.equals(compra.getClienteCompra().getId(), idCliente)){
+        if(!Objects.equals(compra.getUsuarioCompra().getId(), idCliente)){
             throw new MovieUnqLogicException("La compra no corresponde con el cliente");
         }
         if(!correspondenAsientosConCompra(compra.getAsientosComprados(),asientos)){

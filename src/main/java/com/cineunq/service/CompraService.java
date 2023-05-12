@@ -1,6 +1,5 @@
 package com.cineunq.service;
 
-import com.cineunq.dao.ClienteRepository;
 import com.cineunq.dao.CompraRepository;
 import com.cineunq.dominio.*;
 import com.cineunq.dominio.enums.EstadoAsiento;
@@ -10,7 +9,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,15 +19,15 @@ public class CompraService implements ICompraService {
 
     private AsientoService asientoService;
 
-    private ClienteService clienteService;
+    private UsuarioService usuarioService;
 
     private FuncionService funcionService;
 
     @Autowired
-    public CompraService(CompraRepository repository, AsientoService asientoService, ClienteService clienteService, FuncionService funcionService) {
+    public CompraService(CompraRepository repository, AsientoService asientoService, UsuarioService usuarioService, FuncionService funcionService) {
         this.repository = repository;
         this.asientoService = asientoService;
-        this.clienteService = clienteService;
+        this.usuarioService = usuarioService;
         this.funcionService = funcionService;
     }
 
@@ -62,10 +60,10 @@ public class CompraService implements ICompraService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
-            Cliente cliente = clienteService.findByID(idCliente);
+            Usuario usuario = usuarioService.findByID(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
             List<Asiento> asientosComprados = asientoService.updateAsientos(asientos, EstadoAsiento.RESERVADO);
-            Compra compra = new Compra(cliente,funcion,asientosComprados);
+            Compra compra = new Compra(usuario,funcion,asientosComprados);
             return repository.save(compra);
     }
 }

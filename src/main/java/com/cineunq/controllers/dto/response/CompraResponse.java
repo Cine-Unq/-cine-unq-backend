@@ -32,7 +32,7 @@ public class CompraResponse {
     }
 
     public String getCliente(){
-        return wrapped.getClienteCompra().getCorreo();
+        return wrapped.getUsuarioCompra().getCorreo();
     }
 
     public List<Long> getAsientosReservados(){

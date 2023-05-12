@@ -1,7 +1,7 @@
 package com.cineunq.service;
 
-import com.cineunq.dao.ClienteRepository;
-import com.cineunq.dominio.Cliente;
+import com.cineunq.dao.UsuarioRepository;
+import com.cineunq.dominio.Usuario;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,22 +10,24 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ClienteService implements IClienteService {
+public class UsuarioService implements IClienteService {
 
     @Autowired
-    private ClienteRepository repository;
+    private UsuarioRepository repository;
 
     @Override
-    public Cliente findByID(Long id) {
-        Optional<Cliente> cliente = repository.findById(id);
+    public Usuario findByID(Long id) {
+        Optional<Usuario> cliente = repository.findById(id);
         if(cliente.isPresent()){
             return cliente.get();
         }
         throw new NotFoundException("No se a encontrado el Cliente solicitada ");
     }
 
+
+
     @Override
-    public Cliente saveCliente(Cliente cliente) {
-        return repository.save(cliente);
+    public Usuario saveCliente(Usuario usuario) {
+        return repository.save(usuario);
     }
 }

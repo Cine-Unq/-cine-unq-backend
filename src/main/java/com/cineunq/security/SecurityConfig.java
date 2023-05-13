@@ -54,21 +54,19 @@ public class SecurityConfig {
                 .exceptionHandling() //Permitimos el manejo de excepciones
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint) //Nos establece un punto de entrada personalizado de autenticación para el manejo de autenticaciones no autorizadas
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
-                .permitAll()
-                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
+//                .permitAll()
+//                .and()
                 .sessionManagement() //Permite la gestión de sessiones
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests() //Toda petición http debe ser autorizada
-                //.requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/asientos**").hasAnyAuthority("ADMIN" , "USER")
-                .requestMatchers(HttpMethod.GET,"/compra**").hasAnyAuthority("ADMIN" , "USER")
-                .requestMatchers(HttpMethod.GET,"/funcion**").hasAnyAuthority("ADMIN" , "USER")
-                .requestMatchers(HttpMethod.DELETE,"/peliculas**").hasAnyAuthority("ADMIN" , "USER")
-                .requestMatchers(HttpMethod.PUT, "/salas**").hasAnyAuthority("ADMIN" , "USER")
+                .requestMatchers(HttpMethod.GET, "/asientos/**","/compra/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.POST,"/asientos/**","/compra/**").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.DELETE,"/peliculas**").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/salas**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

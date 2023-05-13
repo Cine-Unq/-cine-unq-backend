@@ -32,8 +32,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * luego lo validaremos y finalmente se retornará*/
     private String obtenerTokenDeSolicitud(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
+        System.out.println(bearerToken);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             //Aca si se encuentra el token JWT, se devuelve una subcadena de "bearerToken" que comienza después de los primeros 7 caracteres hasta el final de la cadena
+            //System.out.println(bearerToken.substring(7, bearerToken.length()));
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
@@ -48,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //Obtenemos los datos del token mediante el método desarrollado arriba
         String token = obtenerTokenDeSolicitud(request);
         // Validamos la información del token
-        if (StringUtils.hasText(token) && jwtGenerador.validarToken(token)) {
+        if (jwtGenerador.validarToken(token)) {
             //Asignamos el nombre de usuario contenido en el objeto "token" y lo pasamos a nuestra variable "username"
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
             //Luego creamos el objeto userDetails el cual contendrá todos los detalles de nuestro username, ósea nombre, pw y roles segun el método loadUserByUsername
@@ -64,6 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 //Establecemos el objeto anterior (autenticación del usuario) en el contexto de seguridad
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                System.out.println("Segundo if");
             }
         }
         //Permite que la solicitud continue hacia el siguiente filtro en la cadena de filtro.

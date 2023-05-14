@@ -32,6 +32,7 @@ public class PeliculaController {
         return peliculaService.findByID(Long.parseLong(id));
     }
 
+    //No usado por ahora , devuelve las peliculas solamente con funciones
     @GetMapping(value = "cartelera",produces = "application/json")
     public List<Pelicula> peliculasEnCartelera(){
         return peliculaService.peliculasConFunciones();

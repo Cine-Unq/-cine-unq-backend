@@ -28,11 +28,13 @@ public class CompraController {
         return service.getAll().stream().map(CompraResponse::new).toList();
     }
 
+    //Traer una compra por el id
     @GetMapping(path = "{id}",produces = "application/json")
     public CompraResponse getCompraByID(@PathVariable("id") String id) throws NotFoundException {
         return new CompraResponse(service.findById(Long.parseLong(id)));
     }
 
+    //Endpoint que deberia estar en el qr, solo para el admin
     @GetMapping(path = "qr/{id}",produces = "application/json")
     @Operation(summary = "Devuelve los datos necesarios para el admin cuando escanea el QR de un cliente",description = "Endpoint para cuando se escanea el QR")
     public CompraResponse getCompraQR(@PathVariable("id") String id ) throws NotFoundException {

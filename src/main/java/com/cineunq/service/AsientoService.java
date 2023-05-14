@@ -70,6 +70,14 @@ public class AsientoService implements IAsientoService {
         return repository.findAsientoByFuncion(id);
     }
 
+    public List<Asiento> getAsientosOcupadosPorFuncion(Long id) {
+        return repository.findAsientoByFuncion(id).stream().filter(asiento -> asiento.getEstado().equals(EstadoAsiento.OCUPADO)).toList();
+    }
+
+    public List<Asiento> getAsientosReservadosPorFuncion(Long id) {
+        return repository.findAsientoByFuncion(id).stream().filter(asiento -> asiento.getEstado().equals(EstadoAsiento.RESERVADO)).toList();
+    }
+
 
     public void registrarAsientosOcupados(List<Long> asientos, Long idCliente , Long idCompra) {
         Compra compra = compraService.findById(idCompra);

@@ -66,7 +66,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 //Establecemos el objeto anterior (autenticación del usuario) en el contexto de seguridad
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                System.out.println("Segundo if");
             }
         }
         //Permite que la solicitud continue hacia el siguiente filtro en la cadena de filtro.

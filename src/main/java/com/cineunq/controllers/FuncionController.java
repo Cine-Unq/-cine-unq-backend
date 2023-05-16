@@ -19,9 +19,9 @@ public class FuncionController {
     @Autowired
     private FuncionService funcionService;
 
-    @GetMapping(value = "{pelicula}")
-    public List<FuncionPorPeliculaResponse> funcionesPorPelicula(@PathVariable("pelicula") String pelicula){
-        Map<String,List<Funcion>> funciones = funcionService.funcionesPorPelicula(Long.valueOf(pelicula));
+    @GetMapping(value = "{idPelicula}")
+    public List<FuncionPorPeliculaResponse> funcionesPorPelicula(@PathVariable("idPelicula") String idPelicula){
+        Map<String,List<Funcion>> funciones = funcionService.funcionesPorPelicula(Long.valueOf(idPelicula));
         return funciones.entrySet().stream().map(stringListEntry -> new FuncionPorPeliculaResponse(stringListEntry.getKey(),stringListEntry.getValue())).toList();
     }
 }

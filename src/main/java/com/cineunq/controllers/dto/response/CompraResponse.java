@@ -35,12 +35,12 @@ public class CompraResponse {
         return wrapped.getUsuarioCompra().getCorreo();
     }
 
-    public List<Long> getAsientosReservados(){
-        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.RESERVADO).map(Asiento::getId).toList();
+    public List<Asiento> getAsientosReservados(){
+        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.RESERVADO).toList();
     }
 
-    public List<Long> getAsientosOcupados(){
-        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.OCUPADO).map(Asiento::getId).toList();
+    public List<Asiento> getAsientosOcupados(){
+        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.OCUPADO).toList();
     }
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

@@ -12,6 +12,7 @@ import jakarta.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,9 @@ import java.util.List;
 public class InitData {
 
     protected final Log logger = LogFactory.getLog(getClass());
+
+    @Value("${database}")
+    private String className;
 
     private PeliculaService peliculaService;
 
@@ -51,8 +55,10 @@ public class InitData {
 
     @PostConstruct
     private void initialize() throws NotFoundException {
+        if(className.equals("prod")){
             logger.info("Init Data Using MySql DB");
             fireInitialData();
+        }
     }
 
     private List<Asiento> crearAsientosV1(){

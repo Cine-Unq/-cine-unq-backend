@@ -34,6 +34,10 @@ public class CompraResponse {
     public String getCliente(){
         return wrapped.getUsuarioCompra().getCorreo();
     }
+    public Long getClienteID(){
+        return wrapped.getUsuarioCompra().getId();
+    }
+
 
     public List<Asiento> getAsientosReservados(){
         return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.RESERVADO).toList();
@@ -49,4 +53,7 @@ public class CompraResponse {
         return wrapped.getFechaCompra();
     }
 
+    public Long getCompraID(){
+        return wrapped.getId();
+    }
 }

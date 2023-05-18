@@ -77,6 +77,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests() //Toda petición http debe ser autorizada
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/peliculas/**").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.GET, "/compra/{id}").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.POST,"/compra/").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET,"/funcion/**").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET,"/asientos/**/").hasAnyAuthority("ADMIN","USER")

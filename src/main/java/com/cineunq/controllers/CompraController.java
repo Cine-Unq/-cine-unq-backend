@@ -47,7 +47,7 @@ public class CompraController {
     }
 
     @PostMapping
-    public Compra saveCompra(@RequestBody SaveCompraRequest compra){
-        return service.saveCompra(compra.getIdCliente(),compra.getIdFuncion(),compra.getIdsAsientos());
+    public CompraResponse saveCompra(@RequestBody SaveCompraRequest compra){
+        return new CompraResponse(service.saveCompra(compra.getIdCliente(),compra.getIdFuncion(),compra.getIdsAsientos()));
     }
 }

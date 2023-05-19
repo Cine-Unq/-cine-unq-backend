@@ -8,10 +8,8 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @ToString
-//@Builder
 public class Asiento {
 
     @Id
@@ -27,6 +25,13 @@ public class Asiento {
 
     @NonNull
     private String fila;
+
+    @Builder
+    public Asiento(EstadoAsiento estado,String columna,String fila) {
+        this.estado = estado;
+        this.columna = columna;
+        this.fila = fila;
+    }
 
     public void ocuparAsiento(){
         if(estado == EstadoAsiento.LIBRE){

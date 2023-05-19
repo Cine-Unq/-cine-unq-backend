@@ -28,7 +28,7 @@ public class Pelicula {
     private String imagen;
 
     @Builder
-    public Pelicula(@NonNull String nombre, @NonNull String descripcion, @NonNull Integer duracion, @NonNull String imagen) {
+    public Pelicula(String nombre,String descripcion,Integer duracion,String imagen) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracion = duracion;

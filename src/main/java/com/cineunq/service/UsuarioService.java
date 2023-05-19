@@ -21,10 +21,8 @@ public class UsuarioService implements IClienteService {
         if(cliente.isPresent()){
             return cliente.get();
         }
-        throw new NotFoundException("No se a encontrado el Cliente solicitada ");
+        throw new NotFoundException("No se a encontrado el usuario solicitado ");
     }
-
-
 
     @Override
     public Usuario saveCliente(Usuario usuario) {

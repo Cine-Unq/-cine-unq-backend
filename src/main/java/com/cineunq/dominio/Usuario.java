@@ -32,4 +32,11 @@ public class Usuario {
     )
     private List<Roles> roles = new ArrayList<>();
 
+    @Builder(access = AccessLevel.PUBLIC)
+    public Usuario(String nombre, String correo, String password, List<Roles> roles) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.password = password;
+        this.roles = roles;
+    }
 }

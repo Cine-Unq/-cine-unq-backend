@@ -9,6 +9,7 @@ import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.IAsientoService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,9 +19,14 @@ public class AsientoService implements IAsientoService {
 
     @Autowired
     private AsientosRepository repository;
-
     @Autowired
     private CompraService compraService;
+
+//    @Autowired
+//    public AsientoService(AsientosRepository repository, @Lazy CompraService compraService) {
+//        this.repository = repository;
+//        this.compraService = compraService;
+//    }
 
     @Override
     public List<Asiento> getAll() {
@@ -69,15 +75,6 @@ public class AsientoService implements IAsientoService {
     public List<Asiento> getAsientosPorFuncion(Long id) {
         return repository.findAsientoByFuncion(id);
     }
-
-    public List<Asiento> getAsientosOcupadosPorFuncion(Long id) {
-        return repository.findAsientoByFuncion(id).stream().filter(asiento -> asiento.getEstado().equals(EstadoAsiento.OCUPADO)).toList();
-    }
-
-    public List<Asiento> getAsientosReservadosPorFuncion(Long id) {
-        return repository.findAsientoByFuncion(id).stream().filter(asiento -> asiento.getEstado().equals(EstadoAsiento.RESERVADO)).toList();
-    }
-
 
     public void registrarAsientosOcupados(List<Long> asientos, Long idCliente , Long idCompra) {
         Compra compra = compraService.findById(idCompra);

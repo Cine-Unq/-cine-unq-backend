@@ -17,6 +17,19 @@ repositories {
 }
 
 jacocoTestReport {
+	dependsOn test
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"com/cineunq/security/**",
+					"com/cineunq/aspects/**",
+					"com/cineunq/configuration",
+					"com/cineunq/ServletInitializer.java"
+			])
+		}))
+	}
+
 	reports {
 		xml.enabled true
 		html.enabled true

@@ -28,7 +28,7 @@ public class Compra {
 
     private LocalDate fechaCompra = LocalDate.now();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @NonNull
     private List<Asiento> asientosComprados;
 

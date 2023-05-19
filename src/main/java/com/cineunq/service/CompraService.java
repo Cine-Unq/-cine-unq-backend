@@ -15,21 +15,23 @@ import java.util.Optional;
 @Service
 public class CompraService implements ICompraService {
 
+    @Autowired
     private CompraRepository repository;
-
+    @Autowired
     private AsientoService asientoService;
-
+    @Autowired
     private UsuarioService usuarioService;
-
+    @Autowired
     private FuncionService funcionService;
 
-    @Autowired
-    public CompraService(CompraRepository repository, AsientoService asientoService, UsuarioService usuarioService, FuncionService funcionService) {
-        this.repository = repository;
-        this.asientoService = asientoService;
-        this.usuarioService = usuarioService;
-        this.funcionService = funcionService;
-    }
+
+//    @Autowired
+//    public CompraService(CompraRepository repository, AsientoService asientoService, UsuarioService usuarioService, FuncionService funcionService) {
+//        this.repository = repository;
+//        this.asientoService = asientoService;
+//        this.usuarioService = usuarioService;
+//        this.funcionService = funcionService;
+//    }
 
     public List<Compra> getComprasPorCliente(Long idCliente){
         return repository.findCompraByCliente(idCliente);
@@ -49,13 +51,13 @@ public class CompraService implements ICompraService {
         throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
     }
 
-    public Compra getCompraQR(Long id) throws NotFoundException {
-        Optional<Compra> compra = repository.findById(id);
-        if(compra.isPresent()){
-            return compra.get();
-        }
-        throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
-    }
+//    public Compra getCompraQR(Long id) throws NotFoundException {
+//        Optional<Compra> compra = repository.findById(id);
+//        if(compra.isPresent()){
+//            return compra.get();
+//        }
+//        throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
+//    }
 
     @Override
     @Transactional(rollbackOn = Exception.class)

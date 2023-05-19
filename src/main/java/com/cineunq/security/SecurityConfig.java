@@ -76,6 +76,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests() //Toda petición http debe ser autorizada
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST,"/asientos/pelicula/funcion").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET, "/peliculas/**").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET, "/compra/{id}").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.POST,"/compra/").hasAnyAuthority("ADMIN","USER")
@@ -83,7 +84,6 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/asientos/**/").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET,"/asientos/pelicula/funcion/**/admin").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/compra/**","/salas/**").hasAnyAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST,"/asientos/**").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.DELETE, "/asientos/**","/compra/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/asientos/**","/compra/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()

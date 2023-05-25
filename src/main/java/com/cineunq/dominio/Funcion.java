@@ -37,16 +37,6 @@ public class Funcion {
     @ManyToOne
     private Sala sala;
 
-//    @Builder
-//    public Funcion(Pelicula peliculaEnFuncion, LocalDateTime horaInicio,Sala sala) {
-//        this.peliculaEnFuncion = peliculaEnFuncion;
-//        this.horaInicio = horaInicio;
-//        this.horaFin = horaInicio.plusMinutes(peliculaEnFuncion.getDuracion());
-//        this.sala = sala;
-//        this.asientosSala = new ArrayList<>();
-//        crearAsientos(sala);
-//    }
-
     @Builder
     public Funcion(Pelicula peliculaEnFuncion, LocalDateTime horaInicio,Sala sala,List<Asiento> asientos) {
         this.peliculaEnFuncion = peliculaEnFuncion;

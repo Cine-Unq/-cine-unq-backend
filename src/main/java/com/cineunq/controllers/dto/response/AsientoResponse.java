@@ -12,6 +12,14 @@ public class AsientoResponse {
         return wrapped.getEstado() == EstadoAsiento.LIBRE;
     }
 
+    public boolean getEstaReservado(){
+        return wrapped.getEstado() == EstadoAsiento.RESERVADO;
+    }
+
+    public boolean getEstaOcupado(){
+        return wrapped.getEstado() == EstadoAsiento.OCUPADO;
+    }
+
     public String getColumna() {
         return wrapped.getColumna();
     }

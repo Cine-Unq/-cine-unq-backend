@@ -25,14 +25,6 @@ public class CompraService implements ICompraService {
     private FuncionService funcionService;
 
 
-//    @Autowired
-//    public CompraService(CompraRepository repository, AsientoService asientoService, UsuarioService usuarioService, FuncionService funcionService) {
-//        this.repository = repository;
-//        this.asientoService = asientoService;
-//        this.usuarioService = usuarioService;
-//        this.funcionService = funcionService;
-//    }
-
     public List<Compra> getComprasPorCliente(Long idCliente){
         return repository.findCompraByCliente(idCliente);
     }
@@ -43,7 +35,7 @@ public class CompraService implements ICompraService {
     }
 
     @Override
-    public Compra findById(Long id) throws NotFoundException {
+    public Compra findById(Long id){
         Optional<Compra> compra = repository.findById(id);
         if(compra.isPresent()){
             return compra.get();
@@ -51,17 +43,9 @@ public class CompraService implements ICompraService {
         throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
     }
 
-//    public Compra getCompraQR(Long id) throws NotFoundException {
-//        Optional<Compra> compra = repository.findById(id);
-//        if(compra.isPresent()){
-//            return compra.get();
-//        }
-//        throw new NotFoundException("Compra : No se a encontrado la Compra solicitada");
-//    }
-
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
+    public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos){
             Usuario usuario = usuarioService.findByID(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
             List<Asiento> asientosComprados = asientoService.updateAsientos(asientos, EstadoAsiento.RESERVADO);

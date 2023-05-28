@@ -34,7 +34,7 @@ public class AsientoService implements IAsientoService {
     }
 
     @Override
-    public Asiento findByID(Long id) throws NotFoundException {
+    public Asiento findByID(Long id){
         Optional<Asiento> asiento = repository.findById(id);
         if(asiento.isPresent()){
             return asiento.get();
@@ -49,7 +49,7 @@ public class AsientoService implements IAsientoService {
 
     @Transactional(rollbackOn = Exception.class)
     @Override
-    public List<Asiento> updateAsientos(List<Long> idsAsientosComprados,EstadoAsiento estado) throws NotFoundException {
+    public List<Asiento> updateAsientos(List<Long> idsAsientosComprados,EstadoAsiento estado){
         List<Asiento> asientos = new ArrayList<>();
         idsAsientosComprados.forEach(idAsiento -> {
             try {
@@ -61,7 +61,7 @@ public class AsientoService implements IAsientoService {
         return asientos;
     }
 
-    public Asiento updateAsiento(Long id,EstadoAsiento estado) throws NotFoundException {
+    public Asiento updateAsiento(Long id,EstadoAsiento estado){
         Asiento asiento = this.findByID(id);
         if (estado == EstadoAsiento.OCUPADO) {
             asiento.ocuparAsiento();
@@ -76,7 +76,7 @@ public class AsientoService implements IAsientoService {
         return repository.findAsientoByFuncion(id);
     }
 
-    public void registrarAsientosOcupados(List<Long> asientos, Long idCliente , Long idCompra) {
+    public void registrarAsientosOcupados(List<Long> asientos, Long idCliente , Long idCompra){
         Compra compra = compraService.findById(idCompra);
         if(!Objects.equals(compra.getUsuarioCompra().getId(), idCliente)){
             throw new MovieUnqLogicException("La compra no corresponde con el cliente");

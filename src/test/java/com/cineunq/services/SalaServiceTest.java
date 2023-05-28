@@ -1,4 +1,4 @@
-package com.cineunq;
+package com.cineunq.services;
 
 import com.cineunq.dominio.Pelicula;
 import com.cineunq.dominio.Sala;
@@ -20,17 +20,14 @@ public class SalaServiceTest {
     @Autowired
     private SalaService salaService;
 
-    private Sala s1;
-
     @BeforeEach
     public void setUp(){
-        s1 = salaService.saveSala(Sala.builder().nombreSala("Sala1").tipoSala("2d").columnas("A").cantFilas(1).build());
     }
 
     @Test
     public void testSalaPorIdCuandoSoloExisteUna(){
         Sala salaTest = salaService.findById(1L);
-        assertEquals(s1.getId(),salaTest.getId());
+        assertEquals(1L,salaTest.getId());
     }
 
     @Test

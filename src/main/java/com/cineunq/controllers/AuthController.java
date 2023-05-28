@@ -8,6 +8,7 @@ import com.cineunq.dao.UsuarioRepository;
 import com.cineunq.dominio.Roles;
 import com.cineunq.dominio.Usuario;
 import com.cineunq.security.JwtGenerador;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -41,9 +43,12 @@ public class AuthController {
 
     //Método para poder registrar usuarios con role "user"
     @PostMapping("register")
-    public ResponseEntity<String> registrar(@RequestBody RegistroRequest dtoRegistro) {
+    public ResponseEntity<String> registrar(@Valid @RequestBody RegistroRequest dtoRegistro, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>("Error, campos invalidos", HttpStatus.BAD_REQUEST);
+        }
         if (usuariosRepository.existsByCorreo(dtoRegistro.getCorreo())) {
-            return new ResponseEntity<>("el usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("El usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
         }
         Usuario usuario = new Usuario();
         usuario.setCorreo(dtoRegistro.getCorreo());
@@ -52,28 +57,15 @@ public class AuthController {
         Roles roles = rolesRepository.findByName("USER").get();
         usuario.setRoles(Collections.singletonList(roles));
         usuariosRepository.save(usuario);
-        return new ResponseEntity<>("Registro de usuario exitoso", HttpStatus.OK);
-    }
-
-    //Método para poder guardar usuarios de tipo ADMIN
-    @PostMapping("registerAdm")
-    public ResponseEntity<String> registrarAdmin(@RequestBody RegistroRequest dtoRegistro) {
-        if (usuariosRepository.existsByCorreo(dtoRegistro.getCorreo())) {
-            return new ResponseEntity<>("el usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
-        }
-        Usuario usuario = new Usuario();
-        usuario.setCorreo(dtoRegistro.getCorreo());
-        usuario.setNombre(dtoRegistro.getNombre());
-        usuario.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
-        Roles roles = rolesRepository.findByName("ADMIN").get();
-        usuario.setRoles(Collections.singletonList(roles));
-        usuariosRepository.save(usuario);
-        return new ResponseEntity<>("Registro de admin exitoso", HttpStatus.OK);
+        return new ResponseEntity<>("Registro de usuario exitoso", HttpStatus.CREATED);
     }
 
     //Método para poder logear un usuario y obtener un token
     @PostMapping("login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest dtoLogin) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest dtoLogin, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>("Error, campos invalidos", HttpStatus.BAD_REQUEST);
+        }
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 dtoLogin.getMail(), dtoLogin.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);

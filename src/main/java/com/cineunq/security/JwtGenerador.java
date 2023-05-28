@@ -40,6 +40,12 @@ public class JwtGenerador {
         return token;
     }
 
+    public String generarTokenByUsername(String username){
+        Date tiempoActual = new Date();
+        Date expiracionToken = new Date(tiempoActual.getTime() + expiration);
+        return Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(expiracionToken).signWith(SignatureAlgorithm.HS256, secret).compact();
+    }
+
     //Método para extraer un Username apartir de un token
     public String obtenerUsernameDeJwt(String token) {
         Claims claims = Jwts.parser() // El método parser se utiliza con el fin de analizar el token

@@ -35,11 +35,11 @@ public class CompraController {
     }
 
     //Endpoint que deberia estar en el qr, solo para el admin
-    @GetMapping(path = "qr/{id}",produces = "application/json")
-    @Operation(summary = "Devuelve los datos necesarios para el admin cuando escanea el QR de un cliente",description = "Endpoint para cuando se escanea el QR")
-    public CompraResponse getCompraQR(@PathVariable("id") String id ) throws NotFoundException {
-        return new CompraResponse(service.findById(Long.parseLong(id)));
-    }
+//    @GetMapping(path = "qr/{id}",produces = "application/json")
+//    @Operation(summary = "Devuelve los datos necesarios para el admin cuando escanea el QR de un cliente",description = "Endpoint para cuando se escanea el QR")
+//    public CompraResponse getCompraQR(@PathVariable("id") String id ) throws NotFoundException {
+//        return new CompraResponse(service.findById(Long.parseLong(id)));
+//    }
 
     @GetMapping(path = "cliente/{id}")
     public List<CompraResponse> getComprasPorCliente(@PathVariable("id") String id){
@@ -47,7 +47,7 @@ public class CompraController {
     }
 
     @PostMapping
-    public CompraResponse saveCompra(@RequestBody SaveCompraRequest compra){
+    public CompraResponse saveCompra(@RequestBody SaveCompraRequest compra) throws NotFoundException {
         return new CompraResponse(service.saveCompra(compra.getIdCliente(),compra.getIdFuncion(),compra.getIdsAsientos()));
     }
 }

@@ -17,7 +17,7 @@ public class SalaController {
     private SalaService salaService;
 
     @GetMapping(value = "{id}",produces = "application/json")
-    private Sala getSalaPorId(@PathVariable("id") String id) throws NotFoundException {
+    private Sala getSalaPorId(@PathVariable("id") String id){
         return salaService.findById(Long.parseLong(id));
     }
 }

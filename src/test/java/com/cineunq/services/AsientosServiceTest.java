@@ -1,4 +1,4 @@
-package com.cineunq;
+package com.cineunq.services;
 
 import com.cineunq.dominio.*;
 import com.cineunq.dominio.enums.EstadoAsiento;
@@ -30,44 +30,25 @@ public class AsientosServiceTest {
     private AsientoService asientoService;
 
     @Autowired
-    private FuncionService funcionService;
-
-    @Autowired
-    private SalaService salaService;
-
-    @Autowired
-    private PeliculaService peliculaService;
-
-    @Autowired
     private CompraService compraService;
-
-    @Autowired
-    private UsuarioService usuarioService;
-
-    @Spy
-    private Compra c1;
-
-    private Asiento a1;
-
-    private Asiento a2;
 
     @BeforeEach
     public void setUp(){
-        //compraService = mock(CompraService.class);
-        MockitoAnnotations.openMocks(this);
-        a1 = asientoService.saveAsiento(Asiento.builder().columna("A").fila("1").estado(EstadoAsiento.LIBRE).build());
     }
 
     @Test
     public void testCantAsientosCuandoSoloExisteUnAsiento(){
         List<Asiento> asientos = asientoService.getAll();
-        assertEquals(1,asientos.size());
+        assertEquals(2,asientos.size());
     }
 
     @Test
     public void testIdAsientoCuandoSoloExisteUnAsiento(){
-        Asiento asiento = asientoService.findByID(1L);
-        assertEquals(asiento.getId(),a1.getId());
+        Asiento asiento = asientoService.findByID(2L);
+        assertEquals(2L,asiento.getId());
+        assertEquals("A",asiento.getColumna());
+        assertEquals("2",asiento.getFila());
+        assertEquals(EstadoAsiento.LIBRE,asiento.getEstado());
     }
 
     @Test
@@ -84,27 +65,26 @@ public class AsientosServiceTest {
 
     @Test
     public void testAsientoCambiaDeEstadoDeLibreAReservado(){
-        asientoService.updateAsientos(List.of(1L),EstadoAsiento.RESERVADO);
-        Asiento asiento = asientoService.findByID(1L);
-        assertEquals(1L,asiento.getId());
+        asientoService.updateAsientos(List.of(2L),EstadoAsiento.RESERVADO);
+        Asiento asiento = asientoService.findByID(2L);
+        assertEquals(2L,asiento.getId());
         assertEquals(EstadoAsiento.RESERVADO,asiento.getEstado());
     }
 
     @Test
     public void testAsientoCambiaDeEstadoDeReservadoAOcupado(){
-        a2 = asientoService.saveAsiento(Asiento.builder().columna("A").fila("2").estado(EstadoAsiento.RESERVADO).build());
-        asientoService.updateAsientos(List.of(2L),EstadoAsiento.OCUPADO);
-        Asiento asiento = asientoService.findByID(2L);
-        assertEquals(2L,asiento.getId());
+        //a2 = asientoService.saveAsiento(Asiento.builder().columna("A").fila("2").estado(EstadoAsiento.RESERVADO).build());
+        asientoService.updateAsientos(List.of(1L),EstadoAsiento.OCUPADO);
+        Asiento asiento = asientoService.findByID(1L);
+        assertEquals(1L,asiento.getId());
         assertEquals(EstadoAsiento.OCUPADO,asiento.getEstado());
     }
 
     @Test
     public void testAsientoCambiaDeEstadoDeLibreAOcupadoPeroTiraError(){
         Exception exception = assertThrows(MovieUnqLogicException.class, () -> {
-            asientoService.updateAsientos(List.of(1L),EstadoAsiento.OCUPADO);
+            asientoService.updateAsientos(List.of(2L),EstadoAsiento.OCUPADO);
         });
-
 
         String expectedMessage = "No se puede ocupar un asiento que no fue reservado";
         String actualMessage = exception.getMessage();
@@ -127,36 +107,20 @@ public class AsientosServiceTest {
 
     @Test
     public void testAsientosPorFuncion(){
-        a2 = Asiento.builder().columna("A").fila("2").estado(EstadoAsiento.LIBRE).build();
-        Sala sala = Sala.builder().tipoSala("2d").nombreSala("sala 1").cantFilas(1).columnas("A").build();
-        salaService.saveSala(sala);
-        Pelicula p1 = peliculaService.savePelicula(Pelicula.builder().nombre("Titanic").duracion(120).imagen("titanicPoster.png").descripcion("La de DiCaprio").build());
-        //Mockito.when(p1.getDuracion()).thenReturn(100);
-        Funcion f1 = Funcion.builder().horaInicio(LocalDateTime.now()).peliculaEnFuncion(p1).sala(sala).asientos(List.of(a2)).build();
-        funcionService.saveFuncion(f1);
         List<Asiento> asientosFuncion = asientoService.getAsientosPorFuncion(1L);
-
-        assertEquals(1,asientosFuncion.size());
+        assertEquals(2,asientosFuncion.size());
     }
 
     @Test
     public void testCorrespondenAsientosConCompra(){
-        assertTrue(asientoService.correspondenAsientosConCompra(List.of(a1),List.of(1L)));
+        Compra c1 = compraService.findById(1L);
+        assertTrue(asientoService.correspondenAsientosConCompra(c1.getAsientosComprados(),List.of(1L)));
     }
 
     @Test
     public void testregistrarAsientosOcupados(){
-        Long idCliente = 1L;
-        Long idCompra = 1L;
-        a2 = Asiento.builder().build();
-        Pelicula p1 = peliculaService.savePelicula(Pelicula.builder().duracion(100).build());
-        Sala s1 = salaService.saveSala(Sala.builder().build());
-        usuarioService.saveCliente(Usuario.builder().build());
-        Funcion f1 = Funcion.builder().horaInicio(LocalDateTime.now()).peliculaEnFuncion(p1).sala(s1).asientos(List.of(a2)).build();
-        funcionService.saveFuncion(f1);
-        List<Long> asientos = List.of(a2.getId());
-        compraService.saveCompra(1L,1L,asientos);
-        asientoService.registrarAsientosOcupados(asientos,idCliente,idCompra);
+        compraService.saveCompra(1L,1L,List.of(2L));
+        asientoService.registrarAsientosOcupados(List.of(2L),1L,2L);
         Asiento asientoPostCambio =  asientoService.findByID(2L);
         assertEquals(EstadoAsiento.OCUPADO,asientoPostCambio.getEstado());
     }
@@ -164,17 +128,7 @@ public class AsientosServiceTest {
     @Test
     public void testregistrarAsientosOcupadosFallaPorQueLaCompraNoEsDelCliente(){
         Exception exception = assertThrows(MovieUnqLogicException.class, () -> {
-            Long idCliente = 2L;
-            Long idCompra = 1L;
-            a2 = Asiento.builder().build();
-            Pelicula p1 = peliculaService.savePelicula(Pelicula.builder().duracion(100).build());
-            Sala s1 = salaService.saveSala(Sala.builder().build());
-            usuarioService.saveCliente(Usuario.builder().build());
-            Funcion f1 = Funcion.builder().horaInicio(LocalDateTime.now()).peliculaEnFuncion(p1).sala(s1).asientos(List.of(a2)).build();
-            funcionService.saveFuncion(f1);
-            List<Long> asientos = List.of(a2.getId());
-            compraService.saveCompra(1L,1L,asientos);
-            asientoService.registrarAsientosOcupados(asientos,idCliente,idCompra);
+            asientoService.registrarAsientosOcupados(List.of(2L),2L,1L);
             Asiento asientoPostCambio =  asientoService.findByID(2L);
             assertEquals(EstadoAsiento.OCUPADO,asientoPostCambio.getEstado());
         });
@@ -190,17 +144,7 @@ public class AsientosServiceTest {
     @Test
     public void testregistrarAsientosOcupadosFallaPorQueLosAsientosNoCoincidenConCompra(){
         Exception exception = assertThrows(MovieUnqLogicException.class, () -> {
-            Long idCliente = 1L;
-            Long idCompra = 1L;
-            a2 = Asiento.builder().build();
-            Pelicula p1 = peliculaService.savePelicula(Pelicula.builder().duracion(100).build());
-            Sala s1 = salaService.saveSala(Sala.builder().build());
-            usuarioService.saveCliente(Usuario.builder().build());
-            Funcion f1 = Funcion.builder().horaInicio(LocalDateTime.now()).peliculaEnFuncion(p1).sala(s1).asientos(List.of(a2)).build();
-            funcionService.saveFuncion(f1);
-            List<Long> asientos = List.of(a1.getId());
-            compraService.saveCompra(1L,1L,asientos);
-            asientoService.registrarAsientosOcupados(List.of(2L),idCliente,idCompra);
+            asientoService.registrarAsientosOcupados(List.of(2L),1L,1L);
             Asiento asientoPostCambio =  asientoService.findByID(2L);
             assertEquals(EstadoAsiento.OCUPADO,asientoPostCambio.getEstado());
         });
@@ -209,8 +153,6 @@ public class AsientosServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
-
     }
 
 }

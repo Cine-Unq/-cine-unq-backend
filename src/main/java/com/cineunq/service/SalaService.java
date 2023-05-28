@@ -24,7 +24,7 @@ public class SalaService implements ISalaService {
     }
 
     @Override
-    public Sala findById(Long idSala) throws NotFoundException {
+    public Sala findById(Long idSala){
         Optional<Sala> sala = repository.findById(idSala);
         if(sala.isPresent()){
             return sala.get();

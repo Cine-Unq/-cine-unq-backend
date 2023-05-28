@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,9 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-//Le indica al contenedor de spring que esta es una clase de seguridad al momento de arrancar la aplicación
 @EnableWebSecurity
-//Indicamos que se activa la seguridad web en nuestra aplicación y además esta será una clase la cual contendrá toda la configuración referente a la seguridad
 public class SecurityConfig {
 
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -73,6 +72,10 @@ public class SecurityConfig {
                 .and()
                 .sessionManagement() //Permite la gestión de sessiones
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
+                .permitAll()
                 .and()
                 .authorizeHttpRequests() //Toda petición http debe ser autorizada
                 .requestMatchers("/auth/**").permitAll()

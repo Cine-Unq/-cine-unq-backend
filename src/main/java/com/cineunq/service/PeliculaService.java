@@ -28,7 +28,7 @@ public class PeliculaService implements IPeliculaService {
     }
 
     @Override
-    public Pelicula findByID(Long id) throws NotFoundException {
+    public Pelicula findByID(Long id){
         Optional<Pelicula> pelicula = repository.findById(id);
         if(pelicula.isPresent()) {
             return pelicula.get();

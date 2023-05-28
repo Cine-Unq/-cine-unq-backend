@@ -1,10 +1,18 @@
 package com.cineunq.controllers.dto.request;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class RegistroRequest {
+    @NotBlank
     private String correo;
+    @NotBlank
     private String password;
+    @NotBlank
     private String nombre;
 }

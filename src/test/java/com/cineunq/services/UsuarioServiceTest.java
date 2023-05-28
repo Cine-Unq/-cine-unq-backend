@@ -1,4 +1,4 @@
-package com.cineunq;
+package com.cineunq.services;
 
 import com.cineunq.dominio.Usuario;
 import com.cineunq.exceptions.NotFoundException;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
@@ -21,18 +22,21 @@ public class UsuarioServiceTest {
     @Autowired
     private UsuarioService usuarioService;
 
-    private Usuario u1;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     public void setUp(){
-        MockitoAnnotations.openMocks(this);
-        u1 = usuarioService.saveCliente(Usuario.builder().nombre("Pepe").correo("algo").password("Pepe1").roles(new ArrayList<>()).build());
     }
 
     @Test
     public void testUsuarioPorIdCuandoSoloExisteUno(){
         Usuario uTest = usuarioService.findByID(1L);
-        assertEquals(u1.getId(),uTest.getId());
+        assertEquals(1L,uTest.getId());
+        assertEquals("Pepe",uTest.getNombre());
+        assertEquals("user",uTest.getCorreo());
+        assertTrue(passwordEncoder.matches("user", uTest.getPassword()));
+        assertEquals("USER",uTest.getRoles().get(0).getName());
     }
 
     @Test

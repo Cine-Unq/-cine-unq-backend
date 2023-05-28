@@ -3,6 +3,7 @@ package com.cineunq;
 
 import com.cineunq.dao.IRolesRepository;
 import com.cineunq.dominio.*;
+import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.*;
 import jakarta.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -51,10 +53,13 @@ public class InitData {
     }
 
     @PostConstruct
-    private void initialize() throws NotFoundException {
+    private void initialize(){
         if(className.equals("prod")){
             logger.info("Init Data Using MySql DB");
             fireInitialData();
+        }else{
+            logger.info("Init Data Using H2 DB");
+            fireInitialDataBasicTest();
         }
     }
 
@@ -83,7 +88,7 @@ public class InitData {
         return salas;
     }
 
-    private void fireInitialData() throws NotFoundException {
+    private void fireInitialData() {
 
             Roles rolUser = new Roles(1L,"USER");
             Roles rolAdmin = new Roles(2L,"ADMIN");
@@ -91,9 +96,9 @@ public class InitData {
             rolesRepository.save(rolUser);
             rolesRepository.save(rolAdmin);
 
-            Usuario pepe = new Usuario(1L,"Pepe","pepeArgento@gmail.com.ar",passwordEncoder.encode("Pepe123"),List.of(rolUser));
-            Usuario coki = new Usuario(2L,"Coki","cokiArgento@gmail.com.ar",passwordEncoder.encode("Coki123"),List.of(rolUser));
-            Usuario guti = new Usuario(3L,"Guti","guti@gmail.com.ar",passwordEncoder.encode("Guti123"),List.of(rolAdmin));
+            Usuario pepe = new Usuario(1L,"Pepe","user",passwordEncoder.encode("user"),List.of(rolUser));
+            Usuario coki = new Usuario(2L,"Coki","user2",passwordEncoder.encode("user2"),List.of(rolUser));
+            Usuario guti = new Usuario(3L,"Guti","admin",passwordEncoder.encode("admin"),List.of(rolAdmin));
 
             this.usuarioService.saveCliente(pepe);
             this.usuarioService.saveCliente(coki);
@@ -118,6 +123,29 @@ public class InitData {
             this.compraService.saveCompra(2L,2L,List.of(57L,58L,59L));
 
 
+    }
+
+    private void fireInitialDataBasicTest(){
+        Roles rolUser = new Roles(1L,"USER");
+        Roles rolAdmin = new Roles(2L,"ADMIN");
+
+        rolesRepository.save(rolUser);
+        rolesRepository.save(rolAdmin);
+
+        Usuario pepe = new Usuario(1L,"Pepe","user",passwordEncoder.encode("user"),List.of(rolUser));
+        Usuario guti = new Usuario(2L,"Guti","admin",passwordEncoder.encode("admin"),List.of(rolAdmin));
+
+        this.usuarioService.saveCliente(pepe);
+        this.usuarioService.saveCliente(guti);
+
+        Pelicula p0 = peliculaService.savePelicula(Pelicula.builder().nombre("The Avengers").descripcion("Avengers").duracion(150).imagen("avengers.png").build());
+
+        Sala s1 = salaService.saveSala(Sala.builder().tipoSala("2D").nombreSala("S1").columnas("ABCD").cantFilas(4).build());
+
+        List<Asiento> asientos = List.of(Asiento.builder().estado(EstadoAsiento.LIBRE).columna("A").fila("1").build(),Asiento.builder().estado(EstadoAsiento.LIBRE).columna("A").fila("2").build());
+        Funcion f1 = this.funcionService.saveFuncion(Funcion.builder().peliculaEnFuncion(p0).horaInicio(LocalDateTime.now()).sala(s1).asientos(new ArrayList<>(asientos)).build(),1L);
+
+        Compra c1 = this.compraService.saveCompra(1L,1L,List.of(1L));
     }
 
 }

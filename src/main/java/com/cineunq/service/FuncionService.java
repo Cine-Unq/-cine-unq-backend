@@ -51,7 +51,6 @@ public class FuncionService implements IFuncionService {
             }else {
                 throw new MovieUnqLogicException("No se puede crear una Funcion ahora mismo debido a que ya existe una en curso en la sala");
             }
-
         } catch (NotFoundException e) {
             throw new NotFoundException("Funcion : No se a encontrado la Funcion solicitada");
         }
@@ -71,7 +70,7 @@ public class FuncionService implements IFuncionService {
         return funcionesPorSala;
     }
 
-    public Funcion findById(Long id) throws NotFoundException {
+    public Funcion findById(Long id){
         Optional<Funcion> funcion = funcionRepository.findById(id);
         if(funcion.isPresent()){
             return funcion.get();

@@ -1,4 +1,4 @@
-package com.cineunq;
+package com.cineunq.services;
 
 import com.cineunq.dominio.Funcion;
 import com.cineunq.dominio.Pelicula;
@@ -25,31 +25,24 @@ import static org.junit.jupiter.api.Assertions.*;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PeliculaServiceTest {
 
-//    @Spy
-//    Sala sala;
-
     @Autowired
     private PeliculaService peliculaService;
 
-    @Autowired
-    private FuncionService funcionService;
-
-    @Autowired
-    private SalaService salaService;
-
-    private Pelicula p1;
-
     @BeforeEach
     public void setUp(){
-        MockitoAnnotations.openMocks(this);
-        p1 = peliculaService.savePelicula(Pelicula.builder().nombre("Titanic").duracion(120).imagen("titanicPoster.png").descripcion("La de DiCaprio").build());
+
     }
 
     @Test
-    public void testPeliculaPorIdCuandoSoloExisteUna(){
+    public void testCuandoExisteUnaPelicula(){
         Pelicula pTest = peliculaService.findByID(1L);
-        assertEquals(p1.getId(),pTest.getId());
+        assertEquals(1L,pTest.getId());
+        assertEquals("The Avengers",pTest.getNombre());
+        assertEquals("Avengers",pTest.getDescripcion());
+        assertEquals(150,pTest.getDuracion());
+        assertEquals("avengers.png",pTest.getImagen());
     }
+
 
     @Test
     public void testDondeNoExistePeliculaPorIdYTiraExcepcion(){
@@ -67,14 +60,7 @@ public class PeliculaServiceTest {
     @Test
     public void testTodasLasPeliculasDisponibles(){
         List<Pelicula> peliculas = peliculaService.getAll();
-        peliculas.forEach(pelicula -> System.out.println(pelicula.getNombre()));
         assertEquals(1,peliculas.size());
-    }
-
-    @Test
-    public void testPeliculaPorNombre(){
-        Pelicula pTest = peliculaService.findByNombre("Titanic");
-        assertEquals(p1.getId(),pTest.getId());
     }
 
     @Test
@@ -91,10 +77,6 @@ public class PeliculaServiceTest {
 
     @Test
     public void testDePeliculaConFuncion(){
-        Sala sala = Sala.builder().tipoSala("2d").nombreSala("sala 1").cantFilas(1).columnas("AB").build();
-        salaService.saveSala(sala);
-        Funcion f1 = Funcion.builder().horaInicio(LocalDateTime.now()).peliculaEnFuncion(p1).sala(sala).asientos(new ArrayList<>()).build();
-        funcionService.saveFuncion(f1);
         List<Pelicula> peliculas = peliculaService.peliculasConFunciones();
         assertEquals(1,peliculas.size());
     }

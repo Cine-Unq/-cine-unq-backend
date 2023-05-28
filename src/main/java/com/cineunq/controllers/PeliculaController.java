@@ -28,13 +28,7 @@ public class PeliculaController {
 
     @GetMapping(value = "{id}",produces = "application/json")
     @Operation(summary = "Retorna una pelicula",description = "Devuelve una pelicula si existe")
-    public Pelicula getPeliculaByID(@PathVariable("id") String id) throws NotFoundException {
+    public Pelicula getPeliculaByID(@PathVariable("id") String id){
         return peliculaService.findByID(Long.parseLong(id));
-    }
-
-    //No usado por ahora , devuelve las peliculas solamente con funciones
-    @GetMapping(value = "cartelera",produces = "application/json")
-    public List<Pelicula> peliculasEnCartelera(){
-        return peliculaService.peliculasConFunciones();
     }
 }

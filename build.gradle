@@ -27,6 +27,9 @@ jacocoTestReport {
 					"com/cineunq/configuration",
 					"com/cineunq/ServletInitializer.java"
 			])
+			.filter({ file -> !file.name.contains('CineUnqApplication')})
+			.filter({ file -> !file.name.contains('InitData')})
+			.filter({ file -> !file.name.contains('ServletInitializer')})
 		}))
 	}
 

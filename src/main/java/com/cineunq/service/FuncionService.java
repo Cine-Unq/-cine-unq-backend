@@ -41,7 +41,7 @@ public class FuncionService implements IFuncionService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Funcion saveFuncion(Funcion f,Long idSala) {
+    public Funcion saveFuncion(Funcion f,Long idSala) { //TODO : puede ser que no sea necesario el idSala
         try {
             Sala s1 = salaService.findById(idSala);
             Pelicula p1 = peliculaService.findByID(f.getPeliculaEnFuncion().getId());
@@ -52,7 +52,7 @@ public class FuncionService implements IFuncionService {
                 throw new MovieUnqLogicException("No se puede crear una Funcion ahora mismo debido a que ya existe una en curso en la sala");
             }
         } catch (NotFoundException e) {
-            throw new NotFoundException("Funcion : No se a encontrado la Funcion solicitada");
+            throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion",e);
         }
 
     }

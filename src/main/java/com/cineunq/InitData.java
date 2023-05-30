@@ -93,12 +93,16 @@ public class InitData {
             Roles rolUser = new Roles(1L,"USER");
             Roles rolAdmin = new Roles(2L,"ADMIN");
 
-            rolesRepository.save(rolUser);
-            rolesRepository.save(rolAdmin);
+            rolUser= rolesRepository.save(rolUser);
+            rolAdmin= rolesRepository.save(rolAdmin);
 
-            Usuario pepe = new Usuario(1L,"Pepe","user",passwordEncoder.encode("user"),List.of(rolUser));
-            Usuario coki = new Usuario(2L,"Coki","user2",passwordEncoder.encode("user2"),List.of(rolUser));
-            Usuario guti = new Usuario(3L,"Guti","admin",passwordEncoder.encode("admin"),List.of(rolAdmin));
+            //Usuario pepe = new Usuario(1L,"Pepe","user",passwordEncoder.encode("user"),List.of(rolUser));
+            //Usuario coki = new Usuario(2L,"Coki","user2",passwordEncoder.encode("user2"),List.of(rolUser));
+            //Usuario guti = new Usuario(3L,"Guti","admin",passwordEncoder.encode("admin"),List.of(rolAdmin));
+
+            Usuario pepe = Usuario.builder().nombre("Pepe").correo("user").password(passwordEncoder.encode("user")).roles(rolUser).build();
+            Usuario coki = Usuario.builder().nombre("Coki").correo("user2").password(passwordEncoder.encode("user2")).roles(rolUser).build();
+            Usuario guti = Usuario.builder().nombre("Guti").correo("admin").password(passwordEncoder.encode("admin")).roles(rolAdmin).build();
 
             this.usuarioService.saveCliente(pepe);
             this.usuarioService.saveCliente(coki);
@@ -129,11 +133,11 @@ public class InitData {
         Roles rolUser = new Roles(1L,"USER");
         Roles rolAdmin = new Roles(2L,"ADMIN");
 
-        rolesRepository.save(rolUser);
-        rolesRepository.save(rolAdmin);
+        rolUser = rolesRepository.save(rolUser);
+        rolAdmin = rolesRepository.save(rolAdmin);
 
-        Usuario pepe = new Usuario(1L,"Pepe","user",passwordEncoder.encode("user"),List.of(rolUser));
-        Usuario guti = new Usuario(2L,"Guti","admin",passwordEncoder.encode("admin"),List.of(rolAdmin));
+        Usuario pepe = Usuario.builder().nombre("Pepe").correo("user").password(passwordEncoder.encode("user")).roles(rolUser).build();
+        Usuario guti = Usuario.builder().nombre("Guti").correo("admin").password(passwordEncoder.encode("admin")).roles(rolAdmin).build();
 
         this.usuarioService.saveCliente(pepe);
         this.usuarioService.saveCliente(guti);
@@ -144,6 +148,7 @@ public class InitData {
 
         List<Asiento> asientos = List.of(Asiento.builder().estado(EstadoAsiento.LIBRE).columna("A").fila("1").build(),Asiento.builder().estado(EstadoAsiento.LIBRE).columna("A").fila("2").build());
         Funcion f1 = this.funcionService.saveFuncion(Funcion.builder().peliculaEnFuncion(p0).horaInicio(LocalDateTime.now()).sala(s1).asientos(new ArrayList<>(asientos)).build(),1L);
+        //Funcion f2 = this.funcionService.saveFuncion(Funcion.builder().horaInicio(LocalDateTime.of(2024,1,1,12, 0)).sala(s1).asientos().build(),1L);
 
         Compra c1 = this.compraService.saveCompra(1L,1L,List.of(1L));
     }

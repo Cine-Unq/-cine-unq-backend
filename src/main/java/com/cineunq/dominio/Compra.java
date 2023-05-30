@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class Compra {

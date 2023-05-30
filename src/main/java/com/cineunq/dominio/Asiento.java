@@ -7,9 +7,7 @@ import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(force = true)
-@ToString
 public class Asiento {
 
     @Id

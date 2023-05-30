@@ -41,7 +41,7 @@ public class Funcion {
     public Funcion(Pelicula peliculaEnFuncion, LocalDateTime horaInicio,Sala sala,List<Asiento> asientos) {
         this.peliculaEnFuncion = peliculaEnFuncion;
         this.horaInicio = horaInicio;
-        this.horaFin = horaInicio.plusMinutes(peliculaEnFuncion.getDuracion());
+        this.horaFin = peliculaEnFuncion!=null ? horaInicio.plusMinutes(peliculaEnFuncion.getDuracion()) : null;
         this.sala = sala;
         this.asientosSala = asientos.isEmpty() ? crearAsientos(sala) : asientos;
     }

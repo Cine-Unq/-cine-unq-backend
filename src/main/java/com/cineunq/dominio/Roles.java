@@ -3,12 +3,13 @@ package com.cineunq.dominio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Getter
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,8 +5,6 @@ import lombok.*;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class Pelicula {
 

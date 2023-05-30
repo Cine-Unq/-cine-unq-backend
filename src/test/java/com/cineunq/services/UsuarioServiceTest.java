@@ -36,7 +36,7 @@ public class UsuarioServiceTest {
         assertEquals("Pepe",uTest.getNombre());
         assertEquals("user",uTest.getCorreo());
         assertTrue(passwordEncoder.matches("user", uTest.getPassword()));
-        assertEquals("USER",uTest.getRoles().get(0).getName());
+        assertEquals("USER",uTest.getRoles().getName());
     }
 
     @Test

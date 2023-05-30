@@ -24,8 +24,7 @@ jacocoTestReport {
 			fileTree(dir: it, exclude: [
 					"com/cineunq/security/**",
 					"com/cineunq/aspects/**",
-					"com/cineunq/configuration",
-					"com/cineunq/ServletInitializer.java"
+					"com/cineunq/configuration"
 			])
 			.filter({ file -> !file.name.contains('CineUnqApplication')})
 			.filter({ file -> !file.name.contains('InitData')})

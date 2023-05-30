@@ -94,7 +94,6 @@ public class SecurityConfig {
                 .httpBasic();
         //http.headers().frameOptions().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }

@@ -74,7 +74,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**","/mp/**")
                 .permitAll()
                 .and()
                 .authorizeHttpRequests() //Toda petición http debe ser autorizada

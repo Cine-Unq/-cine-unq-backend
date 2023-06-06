@@ -9,9 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(force = true)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sala {
 
     @Id
@@ -30,8 +28,8 @@ public class Sala {
     @NonNull
     private String tipoSala ;
 
-    @Builder
-    public Sala(@NonNull String nombreSala, @NonNull Integer cantFilas, @NonNull String columnas, @NonNull String tipoSala) {
+    @Builder(access = AccessLevel.PUBLIC)
+    public Sala( String nombreSala,  Integer cantFilas,  String columnas,  String tipoSala) {
         this.nombreSala = nombreSala;
         this.cantFilas = cantFilas;
         this.columnas = columnas;

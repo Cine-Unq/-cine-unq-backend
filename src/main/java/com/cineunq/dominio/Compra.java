@@ -1,6 +1,5 @@
 package com.cineunq.dominio;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class Compra {
@@ -19,9 +17,9 @@ public class Compra {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clienteCompra_id", referencedColumnName = "id")
+    @JoinColumn(name = "usuarioCompra_id", referencedColumnName = "id_usuario")
     @NonNull
-    private Cliente clienteCompra;
+    private Usuario usuarioCompra;
 
     @OneToOne(fetch = FetchType.LAZY)
     @NonNull
@@ -29,7 +27,7 @@ public class Compra {
 
     private LocalDate fechaCompra = LocalDate.now();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @NonNull
     private List<Asiento> asientosComprados;
 

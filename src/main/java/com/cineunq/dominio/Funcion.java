@@ -1,6 +1,5 @@
 package com.cineunq.dominio;
 
-import com.cineunq.dominio.builder.AsientoBuilder;
 import com.cineunq.dominio.enums.EstadoAsiento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,24 +38,23 @@ public class Funcion {
     private Sala sala;
 
     @Builder
-    public Funcion(Pelicula peliculaEnFuncion, LocalDateTime horaInicio,Sala sala) {
+    public Funcion(Pelicula peliculaEnFuncion, LocalDateTime horaInicio,Sala sala,List<Asiento> asientos) {
         this.peliculaEnFuncion = peliculaEnFuncion;
         this.horaInicio = horaInicio;
-        this.horaFin = horaInicio.plusMinutes(peliculaEnFuncion.getDuracion());
+        this.horaFin = peliculaEnFuncion!=null ? horaInicio.plusMinutes(peliculaEnFuncion.getDuracion()) : null;
         this.sala = sala;
-        this.asientosSala = new ArrayList<>();
-        crearAsientos(sala);
+        this.asientosSala = asientos.isEmpty() ? crearAsientos(sala) : asientos;
     }
 
-    private void crearAsientos(Sala sala){
+    private List<Asiento> crearAsientos(Sala sala){
         //asientosSala.clear()
-        //List<Asiento> asientos = new ArrayList<>();
+        List<Asiento> asientos = new ArrayList<>();
         for (int i = 0; i < sala.getColumnas().length();i++){ //Para las Columnas
             for(int j = 1; j < sala.getCantFilas();j++){ //Para las filas
-                Asiento asiento = new AsientoBuilder().withEstaOcupado(EstadoAsiento.LIBRE).withNrColumna(Character.toString(sala.getColumnas().charAt(i))).withNrFila(Integer.toString(j)).build();
-                asientosSala.add(asiento);
+                Asiento asiento = Asiento.builder().estado(EstadoAsiento.LIBRE).columna(Character.toString(sala.getColumnas().charAt(i))).fila(Integer.toString(j)).build();
+                asientos.add(asiento);
             }
         }
-        //asientosSala = asientos;
+        return asientos;
     }
 }

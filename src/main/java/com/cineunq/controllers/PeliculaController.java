@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/peliculas")
+@RequestMapping("/peliculas/")
 @Tag(name = "Peliculas", description = "Endpoints para las peliculas")
 @CrossOrigin(origins= "*", allowedHeaders = "*")
 public class PeliculaController {
@@ -26,14 +26,9 @@ public class PeliculaController {
         return peliculaService.getAll();
     }
 
-    @GetMapping(value = "/{id}",produces = "application/json")
+    @GetMapping(value = "{id}",produces = "application/json")
     @Operation(summary = "Retorna una pelicula",description = "Devuelve una pelicula si existe")
-    public Pelicula getPeliculaByID(@PathVariable("id") String id) throws NotFoundException {
+    public Pelicula getPeliculaByID(@PathVariable("id") String id){
         return peliculaService.findByID(Long.parseLong(id));
-    }
-
-    @GetMapping(value = "/cartelera",produces = "application/json")
-    public List<Pelicula> peliculasEnCartelera(){
-        return peliculaService.peliculasConFunciones();
     }
 }

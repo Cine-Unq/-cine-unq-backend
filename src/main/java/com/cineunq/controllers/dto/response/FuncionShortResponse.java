@@ -8,8 +8,7 @@ import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 public class FuncionShortResponse {
 

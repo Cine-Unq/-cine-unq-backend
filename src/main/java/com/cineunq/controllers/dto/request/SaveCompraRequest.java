@@ -10,7 +10,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-@Setter
 public class SaveCompraRequest {
     private Long idCliente;
     private Long idFuncion;

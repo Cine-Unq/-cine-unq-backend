@@ -1,36 +1,29 @@
 package com.cineunq.service;
 
-import com.cineunq.dao.ClienteRepository;
 import com.cineunq.dao.CompraRepository;
 import com.cineunq.dominio.*;
+import com.cineunq.dominio.enums.EstadoAsiento;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.interfaces.ICompraService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CompraService implements ICompraService {
 
+    @Autowired
     private CompraRepository repository;
-
+    @Autowired
     private AsientoService asientoService;
-
-    private ClienteService clienteService;
-
+    @Autowired
+    private UsuarioService usuarioService;
+    @Autowired
     private FuncionService funcionService;
 
-    @Autowired
-    public CompraService(CompraRepository repository, AsientoService asientoService, ClienteService clienteService, FuncionService funcionService) {
-        this.repository = repository;
-        this.asientoService = asientoService;
-        this.clienteService = clienteService;
-        this.funcionService = funcionService;
-    }
 
     public List<Compra> getComprasPorCliente(Long idCliente){
         return repository.findCompraByCliente(idCliente);
@@ -42,7 +35,7 @@ public class CompraService implements ICompraService {
     }
 
     @Override
-    public Compra findById(Long id) throws NotFoundException {
+    public Compra findById(Long id){
         Optional<Compra> compra = repository.findById(id);
         if(compra.isPresent()){
             return compra.get();
@@ -52,11 +45,11 @@ public class CompraService implements ICompraService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos) {
-            Cliente cliente = clienteService.findByID(idCliente);
+    public Compra saveCompra(Long idCliente, Long idFuncion,List<Long> asientos){
+            Usuario usuario = usuarioService.findByID(idCliente);
             Funcion funcion = funcionService.findById(idFuncion);
-            List<Asiento> asientosComprados = asientoService.updateAsientos(asientos);
-            Compra compra = new Compra(cliente,funcion,asientosComprados);
+            List<Asiento> asientosComprados = asientoService.updateAsientos(asientos, EstadoAsiento.RESERVADO);
+            Compra compra = new Compra(usuario,funcion,asientosComprados);
             return repository.save(compra);
     }
 }

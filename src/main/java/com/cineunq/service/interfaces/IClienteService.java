@@ -1,10 +1,10 @@
 package com.cineunq.service.interfaces;
 
-import com.cineunq.dominio.Cliente;
+import com.cineunq.dominio.Usuario;
 
 public interface IClienteService {
 
-    Cliente findByID(Long id);
+    Usuario findByID(Long id);
 
-    Cliente saveCliente(Cliente cliente);
+    Usuario saveCliente(Usuario usuario);
 }

@@ -18,8 +18,8 @@ public class PeliculaService implements IPeliculaService {
     private PeliculaRepository repository;
 
     @Override
-    public void savePelicula(Pelicula p){
-        repository.save(p);
+    public Pelicula savePelicula(Pelicula p){
+        return repository.save(p);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class PeliculaService implements IPeliculaService {
     }
 
     @Override
-    public Pelicula findByID(Long id) throws NotFoundException {
+    public Pelicula findByID(Long id){
         Optional<Pelicula> pelicula = repository.findById(id);
         if(pelicula.isPresent()) {
             return pelicula.get();
@@ -37,8 +37,12 @@ public class PeliculaService implements IPeliculaService {
     }
 
     @Override
-    public Optional<Pelicula> findByNombre(String nombre) {
-        return repository.findByNombre(nombre);
+    public Pelicula findByNombre(String nombre) {
+        Optional<Pelicula> pelicula = repository.findByNombre(nombre);
+        if(pelicula.isPresent()) {
+            return pelicula.get();
+        }
+        throw new NotFoundException("No se a encontrado la Pelicula solicitada ");
     }
 
     public List<Pelicula> peliculasConFunciones(){

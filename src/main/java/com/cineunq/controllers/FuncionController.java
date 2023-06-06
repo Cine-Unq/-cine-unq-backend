@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/funcion")
+@RequestMapping("/funcion/")
 @Tag(name = "Funciones", description = "Endpoints para las funciones")
 @CrossOrigin(origins= "*", allowedHeaders = "*")
 public class FuncionController {
@@ -19,9 +19,9 @@ public class FuncionController {
     @Autowired
     private FuncionService funcionService;
 
-    @GetMapping(value = "/{pelicula}")
-    public List<FuncionPorPeliculaResponse> funcionesPorPelicula(@PathVariable("pelicula") String pelicula){
-        Map<String,List<Funcion>> funciones = funcionService.funcionesPorPelicula(Long.valueOf(pelicula));
+    @GetMapping(value = "{idPelicula}")
+    public List<FuncionPorPeliculaResponse> funcionesPorPelicula(@PathVariable("idPelicula") String idPelicula){
+        Map<String,List<Funcion>> funciones = funcionService.funcionesPorPelicula(Long.valueOf(idPelicula));
         return funciones.entrySet().stream().map(stringListEntry -> new FuncionPorPeliculaResponse(stringListEntry.getKey(),stringListEntry.getValue())).toList();
     }
 }

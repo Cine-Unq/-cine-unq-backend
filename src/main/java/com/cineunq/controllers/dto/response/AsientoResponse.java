@@ -8,8 +8,16 @@ import lombok.AllArgsConstructor;
 public class AsientoResponse {
     private Asiento wrapped;
 
+    public boolean getEstaLibre(){
+        return wrapped.getEstado() == EstadoAsiento.LIBRE;
+    }
+
+    public boolean getEstaReservado(){
+        return wrapped.getEstado() == EstadoAsiento.RESERVADO;
+    }
+
     public boolean getEstaOcupado(){
-        return wrapped.getEstaOcupado() == EstadoAsiento.LIBRE;
+        return wrapped.getEstado() == EstadoAsiento.OCUPADO;
     }
 
     public String getColumna() {

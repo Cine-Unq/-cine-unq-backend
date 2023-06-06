@@ -2,6 +2,7 @@ package com.cineunq.service.interfaces;
 
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;
+import com.cineunq.exceptions.MovieUnqLogicException;
 import com.cineunq.exceptions.NotFoundException;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public interface IAsientoService {
 
     Asiento saveAsiento(Asiento p);
 
-    List<Asiento> updateAsientos(List<Long> ids) throws NotFoundException;
+    List<Asiento> updateAsientos(List<Long> ids,EstadoAsiento estado) throws NotFoundException;
 
-    Asiento updateAsiento(Long id) throws NotFoundException;
+    Asiento updateAsiento(Long id,EstadoAsiento estado) throws NotFoundException, MovieUnqLogicException;
 
     List<Asiento> getAsientosPorFuncion(Long id);
 }

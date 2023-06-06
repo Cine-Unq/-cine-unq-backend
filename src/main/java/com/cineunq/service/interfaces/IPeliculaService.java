@@ -12,7 +12,7 @@ public interface IPeliculaService {
 
     Pelicula findByID(Long id) throws NotFoundException;
 
-    Optional<Pelicula> findByNombre(String nombre);
+    Pelicula findByNombre(String nombre);
 
-    void savePelicula(Pelicula p);
+    Pelicula savePelicula(Pelicula p);
 }

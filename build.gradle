@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'war'
-	id 'org.springframework.boot' version '3.0.4'
+	id 'org.springframework.boot' version '3.0.6'
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -17,11 +17,32 @@ repositories {
 }
 
 jacocoTestReport {
+	dependsOn test
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"com/cineunq/security/**",
+					"com/cineunq/aspects/**",
+					"com/cineunq/configuration"
+			])
+			.filter({ file -> !file.name.contains('CineUnqApplication')})
+			.filter({ file -> !file.name.contains('InitData')})
+			.filter({ file -> !file.name.contains('ServletInitializer')})
+		}))
+	}
+
 	reports {
 		xml.enabled true
 		html.enabled true
 	}
 }
+
+//processResources {
+//	filesMatching("**/application.properties") {
+//		expand([APP_PROPERTY: project.properties.getOrDefault('APP_PROPERTY', '')])
+//	}
+//}
 
 check.dependsOn jacocoTestReport
 
@@ -29,9 +50,17 @@ check.dependsOn jacocoTestReport
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.0.6'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.5'
 	implementation 'com.mysql:mysql-connector-j:8.0.32'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+	implementation 'com.mercadopago:sdk-java:2.1.10'
+	implementation 'org.json:json:20230227'
+
 	//implementation 'org.springframework.boot:spring-boot-devtools:3.0.5'
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'

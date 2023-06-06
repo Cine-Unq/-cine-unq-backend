@@ -5,8 +5,6 @@ import lombok.*;
 
 @Entity
 @Getter
-@Setter
-@RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class Pelicula {
 
@@ -27,4 +25,11 @@ public class Pelicula {
     @NonNull
     private String imagen;
 
+    @Builder
+    public Pelicula(String nombre,String descripcion,Integer duracion,String imagen) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.imagen = imagen;
+    }
 }

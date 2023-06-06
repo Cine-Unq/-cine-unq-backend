@@ -38,6 +38,12 @@ jacocoTestReport {
 	}
 }
 
+//processResources {
+//	filesMatching("**/application.properties") {
+//		expand([APP_PROPERTY: project.properties.getOrDefault('APP_PROPERTY', '')])
+//	}
+//}
+
 check.dependsOn jacocoTestReport
 
 

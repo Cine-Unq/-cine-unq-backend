@@ -36,7 +36,7 @@ public class MPService {
                         .title("Entradas Funcion")
                         .description("Entradas")
                         .categoryId("Entretenimiento")
-                        .quantity(cantidadEntradas) //cantEntradas
+                        .quantity(cantidadEntradas)
                         .currencyId("ARS")
                         .unitPrice(new BigDecimal("10"))
                         .build();

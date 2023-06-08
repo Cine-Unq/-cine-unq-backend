@@ -52,4 +52,10 @@ public class CompraService implements ICompraService {
             Compra compra = new Compra(usuario,funcion,asientosComprados);
             return repository.save(compra);
     }
+
+    public Compra confirmarPagoCompra(Long idCompra){
+        Compra compra = this.findById(idCompra);
+        compra.pagarCompra();
+        return repository.save(compra);
+    }
 }

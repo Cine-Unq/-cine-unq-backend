@@ -17,19 +17,19 @@ public class Sala {
     public Long id;
 
     @NonNull
-    public String nombreSala;
+    private String nombreSala;
 
     @NonNull
-    public Integer cantFilas;
+    private Integer cantFilas;
 
     @NonNull
     private String columnas ;
 
-    @NonNull
-    private String tipoSala ;
+    @ManyToOne
+    private InfoTipoSala tipoSala;
 
     @Builder(access = AccessLevel.PUBLIC)
-    public Sala( String nombreSala,  Integer cantFilas,  String columnas,  String tipoSala) {
+    public Sala(@NonNull String nombreSala, @NonNull Integer cantFilas, @NonNull String columnas, InfoTipoSala tipoSala) {
         this.nombreSala = nombreSala;
         this.cantFilas = cantFilas;
         this.columnas = columnas;

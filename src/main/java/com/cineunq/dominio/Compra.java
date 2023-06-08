@@ -1,5 +1,6 @@
 package com.cineunq.dominio;
 
+import com.cineunq.dominio.enums.EstadoPago;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +31,20 @@ public class Compra {
     @OneToMany(fetch = FetchType.EAGER)
     @NonNull
     private List<Asiento> asientosComprados;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPago estadoPago = EstadoPago.PENDIENTE;
+
+    public Double getPrecioUnitario(){
+        return funcion.getSala().getTipoSala().getPrecio();
+    }
+
+    public Integer cantidadAsientosComprados(){
+        return asientosComprados.size();
+    }
+
+    public void pagarCompra(){
+        estadoPago = EstadoPago.PAGADO;
+    }
 
 }

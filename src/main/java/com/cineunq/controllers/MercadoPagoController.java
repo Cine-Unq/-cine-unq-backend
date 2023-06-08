@@ -29,7 +29,7 @@ public class MercadoPagoController {
     @PostMapping("/createAndRedirect")
     public ResponseEntity<?> createAndRecirect(@RequestBody SaveCompraRequest compraDto) throws MPException, MPApiException {
         Compra compra = compraService.saveCompra(compraDto.getIdCliente(),compraDto.getIdFuncion(),compraDto.getIdsAsientos());
-        String response = service.generarCompra(compraDto.getIdsAsientos().size(),compra.getId());
+        String response = service.generarCompra(compra);
         Map<String,String> responseFinal = new HashMap<>();
         responseFinal.put("link",response);
         return new ResponseEntity<>(responseFinal, HttpStatus.OK);

@@ -2,8 +2,10 @@ package com.cineunq;
 
 
 import com.cineunq.dao.IRolesRepository;
+import com.cineunq.dao.InfoTipoSalaRepository;
 import com.cineunq.dominio.*;
 import com.cineunq.dominio.enums.EstadoAsiento;
+import com.cineunq.dominio.enums.TipoSala;
 import com.cineunq.exceptions.NotFoundException;
 import com.cineunq.service.*;
 import jakarta.annotation.PostConstruct;
@@ -41,8 +43,10 @@ public class InitData {
 
     private PasswordEncoder passwordEncoder;
 
+    private InfoTipoSalaRepository infoTipoSalaRepository;
+
     @Autowired
-    public InitData(PeliculaService peliculaService, CompraService compraService, UsuarioService usuarioService, SalaService salaService, FuncionService funcionService,IRolesRepository rolesRepository,PasswordEncoder passwordEncoder) {
+    public InitData(PeliculaService peliculaService, CompraService compraService, UsuarioService usuarioService, SalaService salaService, FuncionService funcionService,IRolesRepository rolesRepository,PasswordEncoder passwordEncoder , InfoTipoSalaRepository infoTipoSalaRepository) {
         this.peliculaService = peliculaService;
         this.compraService = compraService;
         this.usuarioService = usuarioService;
@@ -50,6 +54,7 @@ public class InitData {
         this.funcionService = funcionService;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
+        this.infoTipoSalaRepository = infoTipoSalaRepository;
     }
 
     @PostConstruct
@@ -80,9 +85,14 @@ public class InitData {
     }
 
     private List<Sala> crearSalas(){
-        Sala s1 = Sala.builder().tipoSala("2D").nombreSala("S1").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
-        Sala s2 = Sala.builder().tipoSala("3D").nombreSala("S2").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
-        Sala s3 = Sala.builder().tipoSala("4D").nombreSala("S3").columnas("ABCDEFG").cantFilas(5).build();
+        InfoTipoSala infoTipoSala2d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(100.0).tipoSala(TipoSala.DOS_D).build());
+        InfoTipoSala infoTipoSala3d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(200.0).tipoSala(TipoSala.TRES_D).build());
+        InfoTipoSala infoTipoSala4d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(300.0).tipoSala(TipoSala.CUATRO_D).build());
+
+
+        Sala s1 = Sala.builder().tipoSala(infoTipoSala2d).nombreSala("S1").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
+        Sala s2 = Sala.builder().tipoSala(infoTipoSala3d).nombreSala("S2").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
+        Sala s3 = Sala.builder().tipoSala(infoTipoSala4d).nombreSala("S3").columnas("ABCDEFG").cantFilas(5).build();
         List<Sala> salas = List.of(s1,s2,s3);
         salas.forEach(sala -> this.salaService.saveSala(sala));
         return salas;
@@ -133,6 +143,8 @@ public class InitData {
         Roles rolUser = new Roles(1L,"USER");
         Roles rolAdmin = new Roles(2L,"ADMIN");
 
+        InfoTipoSala infoTipoSala2d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(100.0).tipoSala(TipoSala.DOS_D).build());
+
         rolUser = rolesRepository.save(rolUser);
         rolAdmin = rolesRepository.save(rolAdmin);
 
@@ -144,7 +156,7 @@ public class InitData {
 
         Pelicula p0 = peliculaService.savePelicula(Pelicula.builder().nombre("The Avengers").descripcion("Avengers").duracion(150).imagen("avengers.png").build());
 
-        Sala s1 = salaService.saveSala(Sala.builder().tipoSala("2D").nombreSala("S1").columnas("ABCD").cantFilas(4).build());
+        Sala s1 = salaService.saveSala(Sala.builder().tipoSala(infoTipoSala2d).nombreSala("S1").columnas("ABCD").cantFilas(4).build());
 
         List<Asiento> asientos = List.of(Asiento.builder().estado(EstadoAsiento.LIBRE).columna("A").fila("1").build(),Asiento.builder().estado(EstadoAsiento.LIBRE).columna("A").fila("2").build());
         Funcion f1 = this.funcionService.saveFuncion(Funcion.builder().peliculaEnFuncion(p0).horaInicio(LocalDateTime.now()).sala(s1).asientos(new ArrayList<>(asientos)).build(),1L);

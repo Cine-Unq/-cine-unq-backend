@@ -50,4 +50,9 @@ public class CompraController {
     public CompraResponse saveCompra(@RequestBody SaveCompraRequest compra) throws NotFoundException {
         return new CompraResponse(service.saveCompra(compra.getIdCliente(),compra.getIdFuncion(),compra.getIdsAsientos()));
     }
+
+    @PutMapping(path = "{id}")
+    public CompraResponse confirmarPago(@PathVariable("id") String idCompra){
+        return new CompraResponse(service.confirmarPagoCompra(Long.parseLong(idCompra)));
+    }
 }

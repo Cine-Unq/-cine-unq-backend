@@ -47,7 +47,6 @@ public class Funcion {
     }
 
     private List<Asiento> crearAsientos(Sala sala){
-        //asientosSala.clear()
         List<Asiento> asientos = new ArrayList<>();
         for (int i = 0; i < sala.getColumnas().length();i++){ //Para las Columnas
             for(int j = 1; j < sala.getCantFilas();j++){ //Para las filas

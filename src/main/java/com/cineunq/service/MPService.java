@@ -1,5 +1,6 @@
 package com.cineunq.service;
 
+import com.cineunq.dominio.Compra;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mercadopago.MercadoPagoConfig;
@@ -24,7 +25,7 @@ public class MPService {
     @Value("${MP.ACCESSTOKEN}")
     private String token;
 
-    public String generarCompra(Integer cantidadEntradas,Long idCompra) throws MPException, MPApiException {
+    public String generarCompra(Compra compra) throws MPException, MPApiException {
 
         MercadoPagoConfig.setAccessToken(token);
 
@@ -33,18 +34,18 @@ public class MPService {
         PreferenceItemRequest itemRequest =
                 PreferenceItemRequest.builder()
                         .id("1")
-                        .title("Entradas Funcion")
+                        .title("Entradas Funcion " + compra.getFuncion().getPeliculaEnFuncion().getNombre())
                         .description("Entradas")
                         .categoryId("Entretenimiento")
-                        .quantity(cantidadEntradas)
+                        .quantity(compra.cantidadAsientosComprados())
                         .currencyId("ARS")
-                        .unitPrice(new BigDecimal("10"))
+                        .unitPrice(BigDecimal.valueOf(compra.getPrecioUnitario()))
                         .build();
 
         List<PreferenceItemRequest> items = new ArrayList<>();
         items.add(itemRequest);
 
-        PreferenceBackUrlsRequest urls = PreferenceBackUrlsRequest.builder().success("http://localhost:3000/movie/purchase/success/" + idCompra).failure("http://localhost:3000/movie/purchase/failure").pending("http://localhost:3000/movie/purchase/pending").build();
+        PreferenceBackUrlsRequest urls = PreferenceBackUrlsRequest.builder().success("http://localhost:3000/movie/purchase/success/" + compra.getId()).failure("http://localhost:3000/movie/purchase/failure").pending("http://localhost:3000/movie/purchase/pending").build();
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder().backUrls(urls).items(items).build();
 

@@ -136,6 +136,9 @@ public class InitData {
             this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
             this.compraService.saveCompra(2L,2L,List.of(57L,58L,59L));
 
+            compraService.confirmarPagoCompra(1L);
+            compraService.confirmarPagoCompra(2L);
+
 
     }
 

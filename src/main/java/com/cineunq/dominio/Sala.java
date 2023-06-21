@@ -1,5 +1,6 @@
 package com.cineunq.dominio;
 
+import com.cineunq.dominio.filas.SeccionT;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -19,20 +20,31 @@ public class Sala {
     @NonNull
     private String nombreSala;
 
-    @NonNull
-    private Integer cantFilas;
+//    @NonNull
+//    private Integer cantFilas;
+//
+//    @NonNull
+//    private String columnas;
 
-    @NonNull
-    private String columnas ;
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "sala_id")
+    private List<SeccionT> secciones;
 
     @ManyToOne
     private InfoTipoSala tipoSala;
 
+//    @Builder(access = AccessLevel.PUBLIC)
+//    public Sala(@NonNull String nombreSala, @NonNull Integer cantFilas, @NonNull String columnas, InfoTipoSala tipoSala) {
+//        this.nombreSala = nombreSala;
+//        this.cantFilas = cantFilas;
+//        this.columnas = columnas;
+//        this.tipoSala = tipoSala;
+//    }
+
     @Builder(access = AccessLevel.PUBLIC)
-    public Sala(@NonNull String nombreSala, @NonNull Integer cantFilas, @NonNull String columnas, InfoTipoSala tipoSala) {
+    public Sala(@NonNull String nombreSala, List<SeccionT> secciones, InfoTipoSala tipoSala) {
         this.nombreSala = nombreSala;
-        this.cantFilas = cantFilas;
-        this.columnas = columnas;
+        this.secciones = secciones;
         this.tipoSala = tipoSala;
     }
 }

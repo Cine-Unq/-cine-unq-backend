@@ -84,17 +84,83 @@ public class InitData {
         return peliculas;
     }
 
+    private List<FormaSala> formaSalas1(){
+        FormaSala fs1 = FormaSala.builder().columnas("0").fila("0").build();
+        FormaSala fs2 = FormaSala.builder().columnas("0").fila("2").build();
+        FormaSala fs3 = FormaSala.builder().columnas("0").fila("3").build();
+        FormaSala fs4 = FormaSala.builder().columnas("0").fila("5").build();
+        FormaSala fs5 = FormaSala.builder().columnas("1").fila("0").build();
+        FormaSala fs6 = FormaSala.builder().columnas("1").fila("1").build();
+        FormaSala fs7 = FormaSala.builder().columnas("1").fila("2").build();
+        FormaSala fs8 = FormaSala.builder().columnas("1").fila("3").build();
+        FormaSala fs9 = FormaSala.builder().columnas("1").fila("4").build();
+        FormaSala fs10 = FormaSala.builder().columnas("1").fila("5").build();
+        FormaSala fs11 = FormaSala.builder().columnas("2").fila("0").build();
+        FormaSala fs12 = FormaSala.builder().columnas("2").fila("2").build();
+        FormaSala fs13 = FormaSala.builder().columnas("2").fila("3").build();
+        FormaSala fs14 = FormaSala.builder().columnas("2").fila("5").build();
+        FormaSala fs15 = FormaSala.builder().columnas("3").fila("0").build();
+        FormaSala fs16 = FormaSala.builder().columnas("3").fila("2").build();
+        FormaSala fs17 = FormaSala.builder().columnas("3").fila("3").build();
+        FormaSala fs18 = FormaSala.builder().columnas("3").fila("5").build();
+        FormaSala fs19 = FormaSala.builder().columnas("4").fila("0").build();
+        FormaSala fs20 = FormaSala.builder().columnas("4").fila("2").build();
+        FormaSala fs21 = FormaSala.builder().columnas("4").fila("3").build();
+        FormaSala fs22 = FormaSala.builder().columnas("4").fila("5").build();
+        FormaSala fs23 = FormaSala.builder().columnas("5").fila("0").build();
+        FormaSala fs24 = FormaSala.builder().columnas("5").fila("1").build();
+        FormaSala fs25 = FormaSala.builder().columnas("5").fila("2").build();
+        FormaSala fs26 = FormaSala.builder().columnas("5").fila("3").build();
+        FormaSala fs27 = FormaSala.builder().columnas("5").fila("4").build();
+        FormaSala fs28 = FormaSala.builder().columnas("5").fila("5").build();
+
+        return List.of(fs1,fs2,fs3,fs4,fs5,fs6,fs7,fs8,fs9,fs10,fs11,fs12,fs13,fs14,fs15,fs16,fs17,fs18,fs19,fs20,fs21,fs22,fs23,fs24,fs25,fs26,fs27,fs28);
+    }
+
+    private List<FormaSala> formaSalas2(){
+        FormaSala fs1 = FormaSala.builder().columnas("0").fila("0").build();
+        FormaSala fs2 = FormaSala.builder().columnas("0").fila("5").build();
+        FormaSala fs3 = FormaSala.builder().columnas("1").fila("0").build();
+        FormaSala fs4 = FormaSala.builder().columnas("1").fila("1").build();
+        FormaSala fs5 = FormaSala.builder().columnas("1").fila("4").build();
+        FormaSala fs6 = FormaSala.builder().columnas("1").fila("5").build();
+        FormaSala fs7 = FormaSala.builder().columnas("2").fila("0").build();
+        FormaSala fs8 = FormaSala.builder().columnas("2").fila("1").build();
+        FormaSala fs9 = FormaSala.builder().columnas("2").fila("2").build();
+        FormaSala fs10 = FormaSala.builder().columnas("2").fila("3").build();
+        FormaSala fs11 = FormaSala.builder().columnas("2").fila("4").build();
+        FormaSala fs12 = FormaSala.builder().columnas("2").fila("5").build();
+        FormaSala fs13 = FormaSala.builder().columnas("3").fila("0").build();
+        FormaSala fs14 = FormaSala.builder().columnas("3").fila("2").build();
+        FormaSala fs15 = FormaSala.builder().columnas("3").fila("3").build();
+        FormaSala fs16 = FormaSala.builder().columnas("3").fila("5").build();
+        FormaSala fs17 = FormaSala.builder().columnas("4").fila("0").build();
+        FormaSala fs18 = FormaSala.builder().columnas("4").fila("2").build();
+        FormaSala fs19 = FormaSala.builder().columnas("4").fila("3").build();
+        FormaSala fs20 = FormaSala.builder().columnas("4").fila("5").build();
+        FormaSala fs21 = FormaSala.builder().columnas("5").fila("0").build();
+        FormaSala fs22 = FormaSala.builder().columnas("5").fila("1").build();
+        FormaSala fs23 = FormaSala.builder().columnas("5").fila("2").build();
+        FormaSala fs24 = FormaSala.builder().columnas("5").fila("3").build();
+        FormaSala fs25 = FormaSala.builder().columnas("5").fila("4").build();
+        FormaSala fs26 = FormaSala.builder().columnas("5").fila("5").build();
+
+        return List.of(fs1,fs2,fs3,fs4,fs5,fs6,fs7,fs8,fs9,fs10,fs11,fs12,fs13,fs14,fs15,fs16,fs17,fs18,fs19,fs20,fs21,fs22,fs23,fs24,fs25,fs26);
+    }
+
     private List<Sala> crearSalas(){
         InfoTipoSala infoTipoSala2d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(100.0).tipoSala(TipoSala.DOS_D).build());
         InfoTipoSala infoTipoSala3d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(200.0).tipoSala(TipoSala.TRES_D).build());
         InfoTipoSala infoTipoSala4d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(300.0).tipoSala(TipoSala.CUATRO_D).build());
 
+        List<FormaSala> sala1 = formaSalas1();
+        List<FormaSala> sala2 = formaSalas2();
 
-        Sala s1 = Sala.builder().tipoSala(infoTipoSala2d).nombreSala("S1").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
-        Sala s2 = Sala.builder().tipoSala(infoTipoSala3d).nombreSala("S2").columnas("ABCDEFGHIJKLMN").cantFilas(5).build();
-        Sala s3 = Sala.builder().tipoSala(infoTipoSala4d).nombreSala("S3").columnas("ABCDEFG").cantFilas(5).build();
+        Sala s1 = Sala.builder().tipoSala(infoTipoSala2d).nombreSala("S1").columnas("8").cantFilas(8).forma(sala1).build();
+        Sala s2 = Sala.builder().tipoSala(infoTipoSala3d).nombreSala("S2").columnas("6").cantFilas(6).forma(sala2).build();
+        //Sala s3 = Sala.builder().tipoSala(infoTipoSala4d).nombreSala("S3").columnas("4").cantFilas(4).build();
 
-        List<Sala> salas = List.of(s1,s2,s3);
+        List<Sala> salas = List.of(s1,s2);
         salas.forEach(sala -> this.salaService.saveSala(sala));
         return salas;
     }
@@ -107,10 +173,6 @@ public class InitData {
             rolUser= rolesRepository.save(rolUser);
             rolAdmin= rolesRepository.save(rolAdmin);
 
-            //Usuario pepe = new Usuario(1L,"Pepe","user",passwordEncoder.encode("user"),List.of(rolUser));
-            //Usuario coki = new Usuario(2L,"Coki","user2",passwordEncoder.encode("user2"),List.of(rolUser));
-            //Usuario guti = new Usuario(3L,"Guti","admin",passwordEncoder.encode("admin"),List.of(rolAdmin));
-
             Usuario pepe = Usuario.builder().nombre("Pepe").correo("user").password(passwordEncoder.encode("user")).roles(rolUser).build();
             Usuario coki = Usuario.builder().nombre("Coki").correo("user2").password(passwordEncoder.encode("user2")).roles(rolUser).build();
             Usuario guti = Usuario.builder().nombre("Guti").correo("admin").password(passwordEncoder.encode("admin")).roles(rolAdmin).build();
@@ -121,23 +183,20 @@ public class InitData {
 
             List<Pelicula> peliculas = crearPeliculas();
 
-            InfoTipoSala infoTipoSala2d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(100.0).tipoSala(TipoSala.DOS_D).build());
-            InfoTipoSala infoTipoSala3d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(200.0).tipoSala(TipoSala.TRES_D).build());
-            InfoTipoSala infoTipoSala4d = infoTipoSalaRepository.save(InfoTipoSala.builder().precio(300.0).tipoSala(TipoSala.CUATRO_D).build());
-            //List<Sala> salas = crearSalas();
+            List<Sala> salas = crearSalas();
 
-//            Funcion f1 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now()).sala(salas.get(0)).asientos(new ArrayList<>()).build();
-//            this.funcionService.saveFuncion(f1,1L);
-//
-//            Funcion f2 = Funcion.builder().peliculaEnFuncion(peliculas.get(1)).horaInicio(LocalDateTime.now()).sala(salas.get(1)).asientos(new ArrayList<>()).build();
-//            this.funcionService.saveFuncion(f2,2L);
+            Funcion f1 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now()).sala(salas.get(0)).asientos(new ArrayList<>()).build();
+            this.funcionService.saveFuncion(f1,1L);
+
+            Funcion f2 = Funcion.builder().peliculaEnFuncion(peliculas.get(1)).horaInicio(LocalDateTime.now()).sala(salas.get(1)).asientos(new ArrayList<>()).build();
+            this.funcionService.saveFuncion(f2,2L);
 
 //            Funcion f3 = Funcion.builder().peliculaEnFuncion(peliculas.get(2)).horaInicio(LocalDateTime.now().plusHours(4)).sala(salas.get(0)).build();
 //            this.funcionService.saveFuncion(f3,1L);
-
+//
 //            Funcion f4 = Funcion.builder().peliculaEnFuncion(peliculas.get(0)).horaInicio(LocalDateTime.now().plusHours(4)).sala(salas.get(1)).asientos(new ArrayList<>()).build();
 //            this.funcionService.saveFuncion(f4,1L);
-//
+
 //            this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
 //            this.compraService.saveCompra(2L,2L,List.of(57L,58L,59L));
 //

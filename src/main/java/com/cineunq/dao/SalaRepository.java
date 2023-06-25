@@ -12,4 +12,7 @@ public interface SalaRepository extends JpaRepository<Sala,Long> {
     @Query("select s from Sala s join InfoTipoSala i where s.tipoSala.id = i.id order by s.nombreSala")
     List<Sala> salasPorInfoTipoSala();
 
+    @Query("select f.sala from Funcion f where f.id = ?1")
+    Sala salaPorIdFuncion(Long idFuncion);
+
 }

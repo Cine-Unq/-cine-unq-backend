@@ -39,6 +39,10 @@ public class SalaService implements ISalaService {
         throw new NotFoundException("Compra : No se a encontrado la Sala solicitada");
     }
 
+    public Sala findSalaByFuncionId(Long idFuncion){
+        return repository.salaPorIdFuncion(idFuncion);
+    }
+
     @Transactional
     public Sala testeoSala(SalaAsientosRequest sala){
         InfoTipoSala infoTipoSala = infoTipoSalaService.getByTipoSala(sala.getTipoSala());

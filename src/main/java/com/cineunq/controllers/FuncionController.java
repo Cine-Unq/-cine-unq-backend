@@ -1,6 +1,7 @@
 package com.cineunq.controllers;
 
 import com.cineunq.controllers.dto.request.PostFuncionRequest;
+import com.cineunq.controllers.dto.response.FuncionGetResponse;
 import com.cineunq.controllers.dto.response.FuncionPorPeliculaResponse;
 import com.cineunq.dominio.Funcion;
 import com.cineunq.service.FuncionService;
@@ -27,7 +28,7 @@ public class FuncionController {
     }
 
     @PostMapping
-    public Funcion crearFuncion(@RequestBody PostFuncionRequest funcionRequest){
-        return funcionService.saveFuncion(funcionRequest);
+    public FuncionGetResponse crearFuncion(@RequestBody PostFuncionRequest funcionRequest){
+        return new FuncionGetResponse(funcionService.saveFuncion(funcionRequest));
     }
 }

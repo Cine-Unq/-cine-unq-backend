@@ -1,5 +1,6 @@
 package com.cineunq.controllers;
 
+import com.cineunq.controllers.dto.request.PostFuncionRequest;
 import com.cineunq.controllers.dto.response.FuncionPorPeliculaResponse;
 import com.cineunq.dominio.Funcion;
 import com.cineunq.service.FuncionService;
@@ -23,5 +24,10 @@ public class FuncionController {
     public List<FuncionPorPeliculaResponse> funcionesPorPelicula(@PathVariable("idPelicula") String idPelicula){
         Map<String,List<Funcion>> funciones = funcionService.funcionesPorPelicula(Long.valueOf(idPelicula));
         return funciones.entrySet().stream().map(stringListEntry -> new FuncionPorPeliculaResponse(stringListEntry.getKey(),stringListEntry.getValue())).toList();
+    }
+
+    @PostMapping
+    public Funcion crearFuncion(@RequestBody PostFuncionRequest funcionRequest){
+        return funcionService.saveFuncion(funcionRequest);
     }
 }

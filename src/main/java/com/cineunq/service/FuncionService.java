@@ -1,5 +1,6 @@
 package com.cineunq.service;
 
+import com.cineunq.controllers.dto.request.PostFuncionRequest;
 import com.cineunq.dao.FuncionRepository;
 import com.cineunq.dominio.Funcion;
 import com.cineunq.dominio.Pelicula;
@@ -41,6 +42,22 @@ public class FuncionService implements IFuncionService {
     }
 
     @Transactional(rollbackOn = Exception.class)
+    public Funcion saveFuncion(PostFuncionRequest funcion) { //TODO : puede ser que no sea necesario el idSala
+        try {
+            Sala s1 = salaService.findById(funcion.getSala());
+            Pelicula p1 = peliculaService.findByID(funcion.getPelicula());
+            boolean estaOcupada = estaSalaOcupada(funcion.getSala(),funcion.getHoraInicio());
+            if(!estaOcupada) {
+                return funcionRepository.save(Funcion.builder().peliculaEnFuncion(p1).sala(s1).horaInicio(funcion.getHoraInicio()).asientos(new ArrayList<>()).build());
+            }else {
+                throw new MovieUnqLogicException("No se puede crear una Funcion ahora mismo debido a que ya existe una en curso en la sala");
+            }
+        } catch (NotFoundException e) {
+            throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion",e);
+        }
+    }
+
+    @Transactional(rollbackOn = Exception.class)
     public Funcion saveFuncion(Funcion f,Long idSala) { //TODO : puede ser que no sea necesario el idSala
         try {
             Sala s1 = salaService.findById(idSala);
@@ -54,7 +71,6 @@ public class FuncionService implements IFuncionService {
         } catch (NotFoundException e) {
             throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion",e);
         }
-
     }
 
     public Map<String,List<Funcion>> funcionesPorPelicula(Long idPelicula){

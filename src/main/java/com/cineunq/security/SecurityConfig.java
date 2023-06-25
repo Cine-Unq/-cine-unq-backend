@@ -84,6 +84,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/compra/{id}").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.PUT, "/compra/{id}").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.POST,"/compra/").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.POST,"/salas/").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.POST,"/funcion/").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET,"/funcion/**").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET,"/asientos/**/").hasAnyAuthority("ADMIN","USER")
                 .requestMatchers(HttpMethod.GET,"/asientos/pelicula/funcion/**/admin").hasAnyAuthority("ADMIN")

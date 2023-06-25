@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostFuncionRequest {
 
-    private Long pelicula;
+    private String pelicula;
 
-    private Long sala;
+    private String sala;
 
     private LocalDateTime horaInicio;
 }

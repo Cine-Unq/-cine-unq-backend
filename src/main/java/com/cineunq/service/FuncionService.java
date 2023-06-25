@@ -44,9 +44,9 @@ public class FuncionService implements IFuncionService {
     @Transactional(rollbackOn = Exception.class)
     public Funcion saveFuncion(PostFuncionRequest funcion) { //TODO : puede ser que no sea necesario el idSala
         try {
-            Sala s1 = salaService.findById(funcion.getSala());
-            Pelicula p1 = peliculaService.findByID(funcion.getPelicula());
-            boolean estaOcupada = estaSalaOcupada(funcion.getSala(),funcion.getHoraInicio());
+            Sala s1 = salaService.findById(Long.valueOf(funcion.getSala()));
+            Pelicula p1 = peliculaService.findByID(Long.valueOf(funcion.getPelicula()));
+            boolean estaOcupada = estaSalaOcupada(Long.valueOf(funcion.getSala()),funcion.getHoraInicio());
             if(!estaOcupada) {
                 return funcionRepository.save(Funcion.builder().peliculaEnFuncion(p1).sala(s1).horaInicio(funcion.getHoraInicio()).asientos(new ArrayList<>()).build());
             }else {

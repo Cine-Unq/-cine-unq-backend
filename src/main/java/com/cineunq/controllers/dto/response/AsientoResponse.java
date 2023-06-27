@@ -8,24 +8,25 @@ import lombok.AllArgsConstructor;
 public class AsientoResponse {
     private Asiento wrapped;
 
-    public boolean getEstaLibre(){
-        return wrapped.getEstado() == EstadoAsiento.LIBRE;
+    public String getEstado() {
+        switch (wrapped.getEstado()) {
+            case LIBRE:
+                return "LIBRE";
+            case RESERVADO:
+                return "RESERVADO";
+            case OCUPADO:
+                return "OCUPADO";
+            default:
+                return "";
+        }
     }
 
-    public boolean getEstaReservado(){
-        return wrapped.getEstado() == EstadoAsiento.RESERVADO;
+    public Integer getPosColumna() {
+        return Integer.valueOf(wrapped.getColumna());
     }
 
-    public boolean getEstaOcupado(){
-        return wrapped.getEstado() == EstadoAsiento.OCUPADO;
-    }
-
-    public String getColumna() {
-        return wrapped.getColumna();
-    }
-
-    public String getFila(){
-        return wrapped.getFila();
+    public Integer getPosFila(){
+        return Integer.valueOf(wrapped.getFila());
     }
 
     public Long getId(){

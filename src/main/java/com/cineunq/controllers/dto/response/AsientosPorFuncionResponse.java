@@ -9,19 +9,11 @@ import java.util.List;
 @Getter
 public class AsientosPorFuncionResponse {
 
-    public String columnas ;
+    public String cantColumnas ;
 
-    public Integer filas;
+    public Integer cantFilas;
 
     public List<AsientoResponse> asientos;
-
-    public  String getColumnas(){
-        return columnas;
-    }
-
-    public Integer getFilas(){
-        return filas;
-    }
 
     public List<AsientoResponse> getAsientos(){
         return asientos;

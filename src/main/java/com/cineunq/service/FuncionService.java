@@ -77,10 +77,13 @@ public class FuncionService implements IFuncionService {
         List<Funcion> funcionesPelicula = funcionRepository.funcionesPorPelicula(idPelicula);
         Map<String,List<Funcion>> funcionesPorSala = new HashMap<>();
         for (Funcion f : funcionesPelicula) {
-            if(funcionesPorSala.get(f.getSala().getTipoSala().getTipoSala().nombre()) != null){
-                funcionesPorSala.get(f.getSala().getTipoSala().getTipoSala().nombre()).add(f);
+            String tipoSala = f.getSala().getTipoSala().getTipoSala().nombre();
+            if(funcionesPorSala.get(tipoSala) != null){
+                funcionesPorSala.get(tipoSala).add(f);
             }else{
-                funcionesPorSala.put(f.getSala().getTipoSala().getTipoSala().nombre(),List.of(f));
+                List<Funcion> element = new ArrayList<>();
+                element.add(f);
+                funcionesPorSala.put(tipoSala,element);
             }
         }
         return funcionesPorSala;

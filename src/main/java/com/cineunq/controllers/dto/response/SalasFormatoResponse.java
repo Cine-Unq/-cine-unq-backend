@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SalasFormatoResponse {
 
-    private String tipoSala;
+    private String tipo;
 
     @JsonIgnore
     private List<Sala> salasDisponibles;

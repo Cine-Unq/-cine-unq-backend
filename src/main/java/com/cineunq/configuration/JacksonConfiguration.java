@@ -20,7 +20,7 @@ public class JacksonConfiguration {
 
             // formatter
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
             // deserializers
             builder.deserializers(new LocalDateDeserializer(dateFormatter));

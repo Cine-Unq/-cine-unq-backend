@@ -41,8 +41,10 @@ public class AsientoController {
 
     @GetMapping("pelicula/funcion/{id}/admin")
     public ResponseEntity<?> getAsientosByFuncionPeliculaAdmin(@PathVariable("id") String id) {
+        Sala salaFuncion = salaService.findSalaByFuncionId(Long.valueOf(id));
         List<AsientoResponse> asientos = service.getAsientosPorFuncion(Long.parseLong(id)).stream().map(AsientoResponse::new).toList();
-        return new ResponseEntity<>(asientos, HttpStatus.OK);
+        AsientosPorFuncionResponse response = new AsientosPorFuncionResponse(salaFuncion.getColumnas(),salaFuncion.getCantFilas(),asientos);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping ("pelicula/funcion")

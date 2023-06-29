@@ -2,11 +2,19 @@ package com.cineunq.controllers.dto.response;
 
 import com.cineunq.dominio.Asiento;
 import com.cineunq.dominio.enums.EstadoAsiento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AsientoResponse {
+
+    @NonNull
     private Asiento wrapped;
+
+    @JsonIgnore
+    private String letters = "abcdefghijklmnñopqrstuvwxyz";
 
     public String getEstado() {
         switch (wrapped.getEstado()) {
@@ -19,6 +27,10 @@ public class AsientoResponse {
             default:
                 return "";
         }
+    }
+
+    public String getLetter(){
+        return String.valueOf(letters.charAt(Integer.parseInt(wrapped.getFila()))).toUpperCase();
     }
 
     public Integer getPosColumna() {

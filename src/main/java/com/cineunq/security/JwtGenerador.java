@@ -1,8 +1,10 @@
 package com.cineunq.security;
 
+import com.cineunq.service.UsuarioService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,9 @@ public class JwtGenerador {
     @Value("${JWT.EXPIRATION.TOKEN}")
     private int expiration;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     //Método para crear un token por medio de la authentication
     public String generarToken(Authentication authentication) {
 
@@ -27,10 +32,13 @@ public class JwtGenerador {
         Date tiempoActual = new Date();
         Date expiracionToken = new Date(tiempoActual.getTime() + expiration);
 
+        Long idUsuario = usuarioService.findByMail(mail);
+
         //Linea para generar el token
         String token = Jwts.builder() //Construimos un token JWT llamado token
                 .setSubject(mail)
                 .claim("rol",authentication.getAuthorities())//Aca establecemos el nombre de usuario que está iniciando sesión
+                .claim("id",idUsuario)
                 .setIssuedAt(new Date()) //Establecemos la fecha de emisión del token en el momento actual
                 .setExpiration(expiracionToken) //Establecemos la fecha de caducidad del token
                 .signWith(SignatureAlgorithm.HS256, secret) /*Utilizamos este método para firmar

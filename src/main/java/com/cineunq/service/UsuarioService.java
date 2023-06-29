@@ -28,4 +28,13 @@ public class UsuarioService implements IClienteService {
     public Usuario saveCliente(Usuario usuario) {
         return repository.save(usuario);
     }
+
+
+    public Long findByMail(String mail) {
+        Optional<Usuario> user = repository.findUsuarioByCorreo(mail);
+        if(user.isPresent()){
+            return user.get().getId();
+        }
+        throw new NotFoundException("No se a encontrado el usuario solicitado ");
+    }
 }

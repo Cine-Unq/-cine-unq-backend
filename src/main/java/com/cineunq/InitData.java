@@ -85,67 +85,52 @@ public class InitData {
     }
 
     private List<FormaSala> formaSalas1(){
-        FormaSala fs1 = FormaSala.builder().columnas("0").fila("0").build();
-        FormaSala fs2 = FormaSala.builder().columnas("0").fila("2").build();
-        FormaSala fs3 = FormaSala.builder().columnas("0").fila("3").build();
-        FormaSala fs4 = FormaSala.builder().columnas("0").fila("5").build();
-        FormaSala fs5 = FormaSala.builder().columnas("1").fila("0").build();
-        FormaSala fs6 = FormaSala.builder().columnas("1").fila("1").build();
-        FormaSala fs7 = FormaSala.builder().columnas("1").fila("2").build();
-        FormaSala fs8 = FormaSala.builder().columnas("1").fila("3").build();
-        FormaSala fs9 = FormaSala.builder().columnas("1").fila("4").build();
-        FormaSala fs10 = FormaSala.builder().columnas("1").fila("5").build();
-        FormaSala fs11 = FormaSala.builder().columnas("2").fila("0").build();
-        FormaSala fs12 = FormaSala.builder().columnas("2").fila("2").build();
-        FormaSala fs13 = FormaSala.builder().columnas("2").fila("3").build();
-        FormaSala fs14 = FormaSala.builder().columnas("2").fila("5").build();
-        FormaSala fs15 = FormaSala.builder().columnas("3").fila("0").build();
-        FormaSala fs16 = FormaSala.builder().columnas("3").fila("2").build();
-        FormaSala fs17 = FormaSala.builder().columnas("3").fila("3").build();
-        FormaSala fs18 = FormaSala.builder().columnas("3").fila("5").build();
-        FormaSala fs19 = FormaSala.builder().columnas("4").fila("0").build();
-        FormaSala fs20 = FormaSala.builder().columnas("4").fila("2").build();
-        FormaSala fs21 = FormaSala.builder().columnas("4").fila("3").build();
-        FormaSala fs22 = FormaSala.builder().columnas("4").fila("5").build();
-        FormaSala fs23 = FormaSala.builder().columnas("5").fila("0").build();
-        FormaSala fs24 = FormaSala.builder().columnas("5").fila("1").build();
-        FormaSala fs25 = FormaSala.builder().columnas("5").fila("2").build();
-        FormaSala fs26 = FormaSala.builder().columnas("5").fila("3").build();
-        FormaSala fs27 = FormaSala.builder().columnas("5").fila("4").build();
-        FormaSala fs28 = FormaSala.builder().columnas("5").fila("5").build();
-
-        return List.of(fs1,fs2,fs3,fs4,fs5,fs6,fs7,fs8,fs9,fs10,fs11,fs12,fs13,fs14,fs15,fs16,fs17,fs18,fs19,fs20,fs21,fs22,fs23,fs24,fs25,fs26,fs27,fs28);
+        List<Integer> fila1 = List.of(5,6,7,8,9);
+        List<Integer> fila2 = List.of(4,5,6,7,8,9,10);
+        List<Integer> fila3 = List.of(3,4,5,6,7,8,9,10,11);
+        List<Integer> fila4 = List.of();
+        List<Integer> fila5 = List.of(4,5,6,7,8,9,10);
+        List<Integer> fila6 = List.of(  0,1,2,4,5,6,7,8,9,10,12,13,14);
+        List<Integer> fila7 = List.of(0,1,2,4,5,6,7,8,9,10,12,13,14);
+        List<Integer> fila8 = List.of(0,1,2,4,5,6,7,8,9,10,12,13,14);
+        List<Integer> fila9 = List.of(0,1,2,4,5,6,7,8,9,10,12,13,14);
+        List<Integer> fila10 = List.of(0,1,2,4,5,6,7,8,9,10,12,13,14);
+        List<Integer> fila11 = List.of(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14);
+        List<List<Integer>> matriz = List.of(fila1,fila2,fila3,fila4,fila5,fila6,fila7,fila8,fila9,fila10,fila11);
+        Integer contador = 0;
+        List<FormaSala> sala = new ArrayList<>();
+        for (List<Integer> fila : matriz) {
+            for (Integer columna : fila) {
+                sala.add(FormaSala.builder().columnas(columna.toString()).fila(contador.toString()).build());
+            }
+            contador++;
+        }
+        return sala;
     }
 
     private List<FormaSala> formaSalas2(){
-        FormaSala fs1 = FormaSala.builder().columnas("0").fila("0").build();
-        FormaSala fs2 = FormaSala.builder().columnas("0").fila("5").build();
-        FormaSala fs3 = FormaSala.builder().columnas("1").fila("0").build();
-        FormaSala fs4 = FormaSala.builder().columnas("1").fila("1").build();
-        FormaSala fs5 = FormaSala.builder().columnas("1").fila("4").build();
-        FormaSala fs6 = FormaSala.builder().columnas("1").fila("5").build();
-        FormaSala fs7 = FormaSala.builder().columnas("2").fila("0").build();
-        FormaSala fs8 = FormaSala.builder().columnas("2").fila("1").build();
-        FormaSala fs9 = FormaSala.builder().columnas("2").fila("2").build();
-        FormaSala fs10 = FormaSala.builder().columnas("2").fila("3").build();
-        FormaSala fs11 = FormaSala.builder().columnas("2").fila("4").build();
-        FormaSala fs12 = FormaSala.builder().columnas("2").fila("5").build();
-        FormaSala fs13 = FormaSala.builder().columnas("3").fila("0").build();
-        FormaSala fs14 = FormaSala.builder().columnas("3").fila("2").build();
-        FormaSala fs15 = FormaSala.builder().columnas("3").fila("3").build();
-        FormaSala fs16 = FormaSala.builder().columnas("3").fila("5").build();
-        FormaSala fs17 = FormaSala.builder().columnas("4").fila("0").build();
-        FormaSala fs18 = FormaSala.builder().columnas("4").fila("2").build();
-        FormaSala fs19 = FormaSala.builder().columnas("4").fila("3").build();
-        FormaSala fs20 = FormaSala.builder().columnas("4").fila("5").build();
-        FormaSala fs21 = FormaSala.builder().columnas("5").fila("0").build();
-        FormaSala fs22 = FormaSala.builder().columnas("5").fila("1").build();
-        FormaSala fs23 = FormaSala.builder().columnas("5").fila("2").build();
-        FormaSala fs24 = FormaSala.builder().columnas("5").fila("3").build();
-        FormaSala fs25 = FormaSala.builder().columnas("5").fila("4").build();
-        FormaSala fs26 = FormaSala.builder().columnas("5").fila("5").build();
-
-        return List.of(fs1,fs2,fs3,fs4,fs5,fs6,fs7,fs8,fs9,fs10,fs11,fs12,fs13,fs14,fs15,fs16,fs17,fs18,fs19,fs20,fs21,fs22,fs23,fs24,fs25,fs26);
+        List<Integer> fila1 = List.of(5,6,7,8,9,10);
+        List<Integer> fila2 = List.of(4,5,6,7,8,9,10,11);
+        List<Integer> fila3 = List.of(3,4,5,6,7,8,9,10,11,12);
+        List<Integer> fila4 = List.of();
+        List<Integer> fila5 = List.of(0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila6 = List.of(  0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila7 = List.of(0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila8 = List.of(0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila9 = List.of(0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila10 = List.of(0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila11 = List.of(0,1,2,4,5,6,7,8,9,10,11,13,14,15);
+        List<Integer> fila12 = List.of(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+        List<List<Integer>> matriz = List.of(fila1,fila2,fila3,fila4,fila5,fila6,fila7,fila8,fila9,fila10,fila11,fila12);
+        Integer contador = 0;
+        List<FormaSala> sala = new ArrayList<>();
+        for (List<Integer> fila : matriz) {
+            for (Integer columna : fila) {
+                sala.add(FormaSala.builder().columnas(columna.toString()).fila(contador.toString()).build());
+            }
+            contador++;
+        }
+        return sala;
     }
 
     private List<Sala> crearSalas(){
@@ -156,8 +141,8 @@ public class InitData {
         List<FormaSala> sala1 = formaSalas1();
         List<FormaSala> sala2 = formaSalas2();
 
-        Sala s1 = Sala.builder().tipoSala(infoTipoSala2d).nombreSala("S1").columnas("8").cantFilas(8).forma(sala1).build();
-        Sala s2 = Sala.builder().tipoSala(infoTipoSala3d).nombreSala("S2").columnas("6").cantFilas(6).forma(sala2).build();
+        Sala s1 = Sala.builder().tipoSala(infoTipoSala2d).nombreSala("S1").columnas("15").cantFilas(11).forma(sala1).build();
+        Sala s2 = Sala.builder().tipoSala(infoTipoSala3d).nombreSala("S2").columnas("16").cantFilas(12).forma(sala2).build();
         //Sala s3 = Sala.builder().tipoSala(infoTipoSala4d).nombreSala("S3").columnas("4").cantFilas(4).build();
 
         List<Sala> salas = List.of(s1,s2);
@@ -198,7 +183,7 @@ public class InitData {
 //            this.funcionService.saveFuncion(f4,1L);
 
             this.compraService.saveCompra(1L,1L,List.of(1L,2L,3L,4L,5L));
-            this.compraService.saveCompra(2L,2L,List.of(29L,30L,31L));
+            this.compraService.saveCompra(2L,2L,List.of(120L,121L,122L));
 //
             compraService.confirmarPagoCompra(1L);
             compraService.confirmarPagoCompra(2L);

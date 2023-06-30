@@ -39,12 +39,12 @@ public class CompraResponse {
     }
 
 
-    public List<Asiento> getAsientosReservados(){
-        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.RESERVADO).toList();
+    public List<AsientoResponse> getAsientosReservados(){
+        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.RESERVADO).toList().stream().map(a -> new AsientoResponse(a)).toList();
     }
 
-    public List<Asiento> getAsientosOcupados(){
-        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.OCUPADO).toList();
+    public List<AsientoResponse> getAsientosOcupados(){
+        return wrapped.getAsientosComprados().stream().filter(asiento -> asiento.getEstado() == EstadoAsiento.OCUPADO).toList().stream().map(a -> new AsientoResponse(a)).toList();
     }
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity//(debug = true)
 public class SecurityConfig {
 
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -33,6 +33,7 @@ public class SecurityConfig {
     public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
+
 
     //Este bean va a encargarse de verificar la información de los usuarios que se loguearán en nuestra api
     @Bean
@@ -91,12 +92,14 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/asientos/pelicula/funcion/**/admin").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/compra/**","/salas/**").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/asientos/**","/compra/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/error").anonymous()
                 .requestMatchers(HttpMethod.PUT, "/compra/**").hasAnyAuthority("ADMIN,USER")
                 .requestMatchers(HttpMethod.PUT, "/asientos/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
         //http.headers().frameOptions().disable();
+        //http.exceptionHandling().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

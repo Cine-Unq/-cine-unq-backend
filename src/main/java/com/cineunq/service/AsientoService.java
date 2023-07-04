@@ -55,7 +55,7 @@ public class AsientoService implements IAsientoService {
             try {
                 asientos.add(this.updateAsiento(idAsiento,estado));
             } catch (NotFoundException e) {
-                throw new MovieUnqLogicException("Asientos : Ocurrio un error al realizar la compra",e);
+                throw new MovieUnqLogicException("Asientos : Ocurrio un error al realizar la compra");
             }
         });
         return asientos;

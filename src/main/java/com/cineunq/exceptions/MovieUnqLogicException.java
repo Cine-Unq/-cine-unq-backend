@@ -9,8 +9,4 @@ public class MovieUnqLogicException extends RuntimeException {
     public MovieUnqLogicException(String message) {
         super(message);
     }
-
-    public MovieUnqLogicException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

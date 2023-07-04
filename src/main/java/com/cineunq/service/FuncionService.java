@@ -42,8 +42,11 @@ public class FuncionService implements IFuncionService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Funcion saveFuncion(PostFuncionRequest funcion) { //TODO : puede ser que no sea necesario el idSala
+    public Funcion saveFuncion(PostFuncionRequest funcion) {
         try {
+            if(funcion.getHoraInicio().isBefore(LocalDateTime.now())){
+                throw new MovieUnqLogicException("No se puede crear una Funcion que sea inmediata o pasada");
+            }
             Sala s1 = salaService.findById(Long.valueOf(funcion.getSala()));
             Pelicula p1 = peliculaService.findByID(Long.valueOf(funcion.getPelicula()));
             boolean estaOcupada = estaSalaOcupada(Long.valueOf(funcion.getSala()),funcion.getHoraInicio());
@@ -53,12 +56,12 @@ public class FuncionService implements IFuncionService {
                 throw new MovieUnqLogicException("No se puede crear una Funcion ahora mismo debido a que ya existe una en curso en la sala");
             }
         } catch (NotFoundException e) {
-            throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion",e);
+            throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion");
         }
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Funcion saveFuncion(Funcion f,Long idSala) { //TODO : puede ser que no sea necesario el idSala
+    public Funcion saveFuncion(Funcion f,Long idSala) {
         try {
             Sala s1 = salaService.findById(idSala);
             Pelicula p1 = peliculaService.findByID(f.getPeliculaEnFuncion().getId());
@@ -69,7 +72,7 @@ public class FuncionService implements IFuncionService {
                 throw new MovieUnqLogicException("No se puede crear una Funcion ahora mismo debido a que ya existe una en curso en la sala");
             }
         } catch (NotFoundException e) {
-            throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion",e);
+            throw new MovieUnqLogicException("Funcion : No se a podido guardar la funcion");
         }
     }
 

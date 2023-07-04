@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity//(debug = true)
+@EnableWebSecurity(debug = true)
 public class SecurityConfig {
 
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -93,6 +93,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/compra/**","/salas/**").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/asientos/**","/compra/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/error").anonymous()
+                .requestMatchers(HttpMethod.POST,"/error").anonymous()
                 .requestMatchers(HttpMethod.PUT, "/compra/**").hasAnyAuthority("ADMIN,USER")
                 .requestMatchers(HttpMethod.PUT, "/asientos/**","/funcion/**","/peliculas/**","/salas/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()

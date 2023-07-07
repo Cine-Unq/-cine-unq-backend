@@ -40,7 +40,11 @@ public class SalaService implements ISalaService {
     }
 
     public Sala findSalaByFuncionId(Long idFuncion){
-        return repository.salaPorIdFuncion(idFuncion);
+        Sala sala = repository.salaPorIdFuncion(idFuncion);
+        if(sala == null){
+            throw new NotFoundException("Sala : No se a encontrado la Sala solicitada basada en la funcion");
+        }
+        return sala;
     }
 
     @Transactional

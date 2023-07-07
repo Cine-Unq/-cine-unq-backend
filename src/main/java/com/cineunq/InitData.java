@@ -79,7 +79,28 @@ public class InitData {
 
         Pelicula p4 = Pelicula.builder().nombre("El Padrino").imagen("https://i.pinimg.com/originals/27/49/2a/27492a953f8ac7054cd3735bf8fd4da0.jpg").descripcion("El patriarca de una organización criminal transfiere el control de su clandestino imperio a su reacio hijo").duracion(175).build();
 
-        List<Pelicula> peliculas = List.of(p0,p1,p2,p3,p4);
+        Pelicula p6 = Pelicula.builder()
+                .nombre("Fight Club")
+                .descripcion("Un insomne empleado de oficina y un carismático vendedor de jabón forman un club de lucha clandestino que se convierte en un movimiento subversivo.")
+                .duracion(139)
+                .imagen("https://culturageek.com.ar/wp-content/uploads/2022/01/Fight-Club-poster-www.culturageek.com_.ar_.jpg")
+                .build();
+
+        Pelicula p7 = Pelicula.builder()
+                .nombre("Forrest Gump")
+                .descripcion("La vida de Forrest Gump, un hombre con un coeficiente intelectual bajo, que vive una serie de aventuras y se cruza con personajes famosos en la historia de Estados Unidos.")
+                .duracion(142)
+                .imagen("https://i.pinimg.com/originals/03/c8/9d/03c89d6a4c0565f265ccff5c4033e8d2.jpg")
+                .build();
+
+        Pelicula p8 = Pelicula.builder()
+                .nombre("The Matrix")
+                .descripcion("Un programador descubre la verdad sobre la realidad simulada en la que vive y se une a una rebelión contra las máquinas que dominan el mundo.")
+                .duracion(136)
+                .imagen("https://image.tmdb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+                .build();
+
+        List<Pelicula> peliculas = List.of(p0,p1,p2,p3,p4,p6,p7,p8);
         peliculas.forEach(pelicula -> peliculaService.savePelicula(pelicula));
         return peliculas;
     }

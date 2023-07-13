@@ -61,12 +61,25 @@ public class AsientoService implements IAsientoService {
         return asientos;
     }
 
+    @Transactional(rollbackOn = Exception.class)
+    public void volverAsientosAEstadoOriginal(List<Long> idsAsientosComprados){
+        idsAsientosComprados.forEach(idAsiento -> {
+            try {
+                this.updateAsiento(idAsiento,EstadoAsiento.LIBRE);
+            } catch (NotFoundException e) {
+                throw new MovieUnqLogicException("Asientos : Ocurrio un error al borrar la compra");
+            }
+        });
+    }
+
     public Asiento updateAsiento(Long id,EstadoAsiento estado){
         Asiento asiento = this.findByID(id);
         if (estado == EstadoAsiento.OCUPADO) {
             asiento.ocuparAsiento();
-        } else {
+        } else if(estado == EstadoAsiento.RESERVADO) {
             asiento.reservarAsiento();
+        } else {
+            asiento.volverEstadoOriginal();
         }
         return repository.save(asiento);
     }

@@ -31,6 +31,10 @@ public class Asiento {
         this.fila = fila;
     }
 
+    public void volverEstadoOriginal(){
+        estado = EstadoAsiento.LIBRE;
+    }
+
     public void ocuparAsiento(){
         if(estado == EstadoAsiento.LIBRE){
             throw new MovieUnqLogicException("No se puede ocupar un asiento que no fue reservado");

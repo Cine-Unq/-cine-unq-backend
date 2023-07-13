@@ -10,9 +10,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/compra/")
@@ -54,5 +57,11 @@ public class CompraController {
     @PutMapping(path = "{id}")
     public CompraResponse confirmarPago(@PathVariable("id") String idCompra){
         return new CompraResponse(service.confirmarPagoCompra(Long.parseLong(idCompra)));
+    }
+
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<?> deletePago(@PathVariable("id") String idCompra){
+       service.deleteCompra(Long.parseLong(idCompra));
+       return new ResponseEntity<>(OK);
     }
 }

@@ -58,4 +58,11 @@ public class CompraService implements ICompraService {
         compra.pagarCompra();
         return repository.save(compra);
     }
+
+    public void deleteCompra(Long idCompra){
+        Compra compra = this.findById(idCompra);
+        List<Long> idAsientos = compra.getAsientosComprados().stream().map(Asiento::getId).toList();
+        asientoService.volverAsientosAEstadoOriginal(idAsientos);
+        repository.delete(compra);
+    }
 }

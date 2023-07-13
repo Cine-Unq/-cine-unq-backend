@@ -45,7 +45,7 @@ public class MPService {
         List<PreferenceItemRequest> items = new ArrayList<>();
         items.add(itemRequest);
 
-        PreferenceBackUrlsRequest urls = PreferenceBackUrlsRequest.builder().success("http://localhost:3000/movie/purchase/success/" + compra.getId()).failure("http://localhost:3000/movie/purchase/failure").pending("http://localhost:3000/movie/purchase/pending").build();
+        PreferenceBackUrlsRequest urls = PreferenceBackUrlsRequest.builder().success("http://localhost:3000/movie/purchase/success/" + compra.getId()).failure("http://localhost:3000/movie/purchase/failure/" + compra.getId()).pending("http://localhost:3000/movie/purchase/pending").build();
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder().backUrls(urls).items(items).build();
 

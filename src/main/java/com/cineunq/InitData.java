@@ -62,9 +62,10 @@ public class InitData {
         if(className.equals("prod")){
             logger.info("Init Data Using MySql DB");
             fireInitialData();
-        }else{
-            logger.info("Init Data Using H2 DB");
-            fireInitialDataBasicTest();
+        }
+        else{
+//            logger.info("Init Data Using H2 DB");
+//            fireInitialDataBasicTest();
         }
     }
 
